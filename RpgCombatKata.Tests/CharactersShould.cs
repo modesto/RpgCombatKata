@@ -43,6 +43,25 @@ namespace RpgCombatKata.Tests
             When.Executed(heal);
             aCharacter.Health.Should().Be(950);
         }
+
+        [Test]
+        public void not_be_healed_if_born_dead() {
+            var aDeadCharacter = Given.ADeadCharacter();
+            var heal = Given.AHealCharacterAction(to: aDeadCharacter.Id, heal: 50);
+            When.Executed(heal);
+            aDeadCharacter.Health.Should().Be(0);
+        }
+
+        [Test]
+        public void not_be_healed_after_dead()
+        {
+            var aCharacter = Given.ACharacter(healthPoints: 50);
+            var damage = Given.ADamageCharacterAction(to: aCharacter.Id, damage: 60);
+            When.Executed(damage);
+            var heal = Given.AHealCharacterAction(to: aCharacter.Id, heal: 50);
+            When.Executed(heal);
+            aCharacter.Health.Should().Be(0);
+        }
     }
 
     public static class TestFixtures {
@@ -65,6 +84,10 @@ namespace RpgCombatKata.Tests
 
         public static HealCharacter AHealCharacterAction(string to, int heal) {
             return new HealCharacter(to, heal);
+        }
+
+        public static Character ADeadCharacter() {
+            return ACharacter(healthPoints: 0);
         }
     }
 }
