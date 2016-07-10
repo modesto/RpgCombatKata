@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpgCombatKata.Core", "RpgCombatKata.Core\RpgCombatKata.Core.csproj", "{493AE078-AD8C-4982-97FA-F82A2B2BF214}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpgCombatKata.Tests", "RpgCombatKata.Tests\RpgCombatKata.Tests.csproj", "{F09C949A-A7CC-489E-84F4-C29490CC9EC3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{493AE078-AD8C-4982-97FA-F82A2B2BF214}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{493AE078-AD8C-4982-97FA-F82A2B2BF214}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{493AE078-AD8C-4982-97FA-F82A2B2BF214}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F09C949A-A7CC-489E-84F4-C29490CC9EC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F09C949A-A7CC-489E-84F4-C29490CC9EC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F09C949A-A7CC-489E-84F4-C29490CC9EC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F09C949A-A7CC-489E-84F4-C29490CC9EC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
