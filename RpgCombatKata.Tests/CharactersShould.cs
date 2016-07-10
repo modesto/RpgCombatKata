@@ -62,6 +62,15 @@ namespace RpgCombatKata.Tests
             When.Executed(heal);
             aCharacter.Health.Should().Be(0);
         }
+
+        [Test]
+        public void not_be_healed_over_max_life() {
+            var aCharacter = Given.ACharacter();
+            var expectedHealth = aCharacter.Health;
+            var heal = Given.AHealCharacterAction(to: aCharacter.Id, heal: 50);
+            When.Executed(heal);
+            aCharacter.Health.Should().Be(expectedHealth);
+        }
     }
 
     public static class TestFixtures {
