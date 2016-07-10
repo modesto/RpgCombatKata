@@ -13,6 +13,14 @@ namespace RpgCombatKata.Tests
             var character = Given.ACharacter();
             character.Health.Should().Be(1000);
         }
+
+        [Test]
+        public void have_an_unique_identifier() {
+            var firstCharacter = Given.ACharacter();
+            var secondCharacter = Given.ACharacter();
+            firstCharacter.Id.Should().NotBeNullOrWhiteSpace();
+            firstCharacter.Id.Should().NotBe(secondCharacter.Id);
+        }
     }
 
     public static class TestFixtures {
