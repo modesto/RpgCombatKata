@@ -3,6 +3,7 @@ using System.Reactive.Linq;
 using RpgCombatKata.Core;
 using RpgCombatKata.Core.Model;
 using RpgCombatKata.Core.Model.Actions;
+using RpgCombatKata.Core.Model.Events;
 
 namespace RpgCombatKata.Tests {
     public static class TestFixtures {
@@ -29,6 +30,18 @@ namespace RpgCombatKata.Tests {
 
         public static Character ADeadCharacter() {
             return ACharacter(healthPoints: 0);
+        }
+
+        public static GameEngine AGameEngine() {
+            return new GameEngine(eventBus);
+        }
+
+        public static JoinToGameRequested AJoinToGameRequestedEvent(Character character) {
+            return new JoinToGameRequested(character);
+        }
+
+        public static void Raised<T>(T gameEvent) where T : GameEvent {
+            eventBus.Publish(gameEvent);
         }
     }
 }

@@ -57,10 +57,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventBus.cs" />
+    <Compile Include="IDisposableExtensionMethods.cs" />
     <Compile Include="Model\Actions\GameAction.cs" />
     <Compile Include="Model\Actions\HealCharacter.cs" />
     <Compile Include="Model\Character.cs" />
     <Compile Include="Model\Actions\DamageCharacter.cs" />
+    <Compile Include="Model\Events\GameEvent.cs" />
+    <Compile Include="Model\Events\JoinToGameRequested.cs" />
+    <Compile Include="Model\Events\TriedToAttack.cs" />
+    <Compile Include="Model\GameEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
