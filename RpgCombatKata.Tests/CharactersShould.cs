@@ -35,23 +35,36 @@ namespace RpgCombatKata.Tests
             When.Executed(damage);
             aCharacter.Health.Should().Be(900);
         }
+
+        [Test]
+        public void be_healed() {
+            var aCharacter = Given.ACharacter(healthPoints : 900);
+            var heal = Given.AHealCharacterAction(to: aCharacter.Id, heal: 50);
+            When.Executed(heal);
+            aCharacter.Health.Should().Be(950);
+        }
     }
 
     public static class TestFixtures {
         private static readonly EventBus eventBus = new EventBus();
 
-        public static Character ACharacter() {
+        public static Character ACharacter(int? healthPoints = default(int?)) {
             var characterUid = Guid.NewGuid().ToString();
             var damagesObservable = eventBus.Subscriber<DamageCharacter>().Where(x => x.To == characterUid);
-            return new Character(characterUid, damagesObservable);
+            var healsObservable = eventBus.Subscriber<HealCharacter>().Where(x => x.To == characterUid);
+            return new Character(characterUid, damagesObservable, healsObservable, healthPoints);
         }
 
         public static DamageCharacter ADamageCharacterAction(string to, int damage) {
             return new DamageCharacter(to, damage);
         }
 
-        public static void Executed(DamageCharacter action) {
+        public static void Executed<T>(T action) where T: GameAction {
             eventBus.Publish(action);
+        }
+
+        public static HealCharacter AHealCharacterAction(string to, int heal) {
+            return new HealCharacter(to, heal);
         }
     }
 }

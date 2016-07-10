@@ -5,10 +5,15 @@ namespace RpgCombatKata.Core.Model {
     public class Character {
         private const int MaxHealth = 1000;
 
-        public Character(string uid, IObservable<DamageCharacter> damagesObservable) {
-            Health = MaxHealth;
+        public Character(string uid, IObservable<DamageCharacter> damagesObservable, IObservable<HealCharacter> healsObservable, int? healthPoints = default(int?)) {
+            Health = healthPoints ?? MaxHealth;
             Id = uid;
             damagesObservable.Subscribe(x => ReceiveDamage(x.Damage));
+            healsObservable.Subscribe(x => ReceiveHeal(x.Heal));
+        }
+
+        private void ReceiveHeal(int heal) {
+            Health += heal;
         }
 
         private void ReceiveDamage(int damage) {

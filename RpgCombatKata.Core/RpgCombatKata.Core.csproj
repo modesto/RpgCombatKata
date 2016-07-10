@@ -57,7 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventBus.cs" />
+    <Compile Include="Model\Actions\GameAction.cs" />
+    <Compile Include="Model\Actions\HealCharacter.cs" />
     <Compile Include="Model\Character.cs" />
+    <Compile Include="Model\Actions\DamageCharacter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

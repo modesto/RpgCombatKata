@@ -1,5 +1,5 @@
 namespace RpgCombatKata.Core.Model.Actions {
-    public class DamageCharacter {
+    public class DamageCharacter : GameAction {
         public int Damage { get; }
         public string To { get; }
 
