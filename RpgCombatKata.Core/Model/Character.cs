@@ -8,13 +8,16 @@ namespace RpgCombatKata.Core.Model {
         private IObservable<HealCharacter> healsObservable;
         private const int MaxHealth = 1000;
 
-        public Character(string uid, IObservable<DamageCharacter> damagesObservable, IObservable<HealCharacter> healsObservable, int? healthPoints = default(int?)) {
+        public Character(string uid, IObservable<DamageCharacter> damagesObservable, IObservable<HealCharacter> healsObservable, int? healthPoints = default(int?), int level = 1) {
             this.healsObservable = healsObservable;
             Health = healthPoints ?? MaxHealth;
             Id = uid;
+            Level = level;
             SubscribeToDamage(damagesObservable);
             VerifyHealthStatus();
         }
+
+        public int Level { get; }
 
         private void SubscribeToDamage(IObservable<DamageCharacter> damagesObservable) {
             damageSubscriber = damagesObservable.Subscribe(x => ReceiveDamage(x.Damage));

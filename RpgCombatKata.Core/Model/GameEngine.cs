@@ -26,7 +26,13 @@ namespace RpgCombatKata.Core.Model {
         }
 
         private void TriedToAttack(TriedToAttack gameEvent) {
-            DamageCharacter damageCharacter = new DamageCharacter(gameEvent.Defender.Id, gameEvent.Damage);
+            var calculatedDamage = gameEvent.Damage;
+            if (gameEvent.Attacker.Level >= gameEvent.Defender.Level + 5) {
+                calculatedDamage = (int)(calculatedDamage*1.5);
+            } else if (gameEvent.Attacker.Level <= gameEvent.Defender.Level + 5) {
+                calculatedDamage = (int) (calculatedDamage - (calculatedDamage*0.5));
+            }
+            DamageCharacter damageCharacter = new DamageCharacter(gameEvent.Defender.Id, calculatedDamage);
             eventBus.Publish(damageCharacter);
         }
 

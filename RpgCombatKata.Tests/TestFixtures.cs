@@ -1,5 +1,6 @@
 using System;
 using System.Reactive.Linq;
+using NUnit.Framework;
 using RpgCombatKata.Core;
 using RpgCombatKata.Core.Model;
 using RpgCombatKata.Core.Model.Actions;
@@ -9,11 +10,11 @@ namespace RpgCombatKata.Tests {
     public class TestFixtures : IDisposable {
         private readonly EventBus eventBus = new EventBus();
 
-        public Character ACharacter(int? healthPoints = default(int?)) {
+        public Character ACharacter(int? healthPoints = default(int?), int level = 1) {
             var characterUid = Guid.NewGuid().ToString();
             var damagesObservable = eventBus.Subscriber<DamageCharacter>().Where(x => x.To == characterUid);
             var healsObservable = eventBus.Subscriber<HealCharacter>().Where(x => x.To == characterUid);
-            return new Character(characterUid, damagesObservable, healsObservable, healthPoints);
+            return new Character(characterUid, damagesObservable, healsObservable, healthPoints, level);
         }
 
         public DamageCharacter ADamageCharacterAction(string to, int damage) {
