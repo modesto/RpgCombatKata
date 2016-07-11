@@ -7,7 +7,7 @@ using When = RpgCombatKata.Tests.TestFixtures;
 namespace RpgCombatKata.Tests
 {
     [TestFixture]
-    public class GameEngineShould
+    public class GameEngineShould : TestBase
     {
         [Test]
         public void allow_a_character_to_join_game() {

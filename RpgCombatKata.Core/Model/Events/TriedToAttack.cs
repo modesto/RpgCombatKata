@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace RpgCombatKata.Core.Model.Events
 {
-    public class TriedToAttack
+    public class TriedToAttack : GameEvent
     {
+        public Character Attacker { get; }
+        public int Damage { get; }
+        public Character Defender { get; }
+
+        public TriedToAttack(Character attacker, Character defender, int damage)
+        {
+            this.Attacker = attacker;
+            this.Defender = defender;
+            this.Damage = damage;
+        }
     }
 }

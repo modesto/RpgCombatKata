@@ -6,42 +6,50 @@ using RpgCombatKata.Core.Model.Actions;
 using RpgCombatKata.Core.Model.Events;
 
 namespace RpgCombatKata.Tests {
-    public static class TestFixtures {
-        private static readonly EventBus eventBus = new EventBus();
+    public class TestFixtures : IDisposable {
+        private readonly EventBus eventBus = new EventBus();
 
-        public static Character ACharacter(int? healthPoints = default(int?)) {
+        public Character ACharacter(int? healthPoints = default(int?)) {
             var characterUid = Guid.NewGuid().ToString();
             var damagesObservable = eventBus.Subscriber<DamageCharacter>().Where(x => x.To == characterUid);
             var healsObservable = eventBus.Subscriber<HealCharacter>().Where(x => x.To == characterUid);
             return new Character(characterUid, damagesObservable, healsObservable, healthPoints);
         }
 
-        public static DamageCharacter ADamageCharacterAction(string to, int damage) {
+        public DamageCharacter ADamageCharacterAction(string to, int damage) {
             return new DamageCharacter(to, damage);
         }
 
-        public static void Executed<T>(T action) where T: GameAction {
+        public void Executed<T>(T action) where T: GameAction {
             eventBus.Publish(action);
         }
 
-        public static HealCharacter AHealCharacterAction(string to, int heal) {
+        public HealCharacter AHealCharacterAction(string to, int heal) {
             return new HealCharacter(to, heal);
         }
 
-        public static Character ADeadCharacter() {
+        public Character ADeadCharacter() {
             return ACharacter(healthPoints: 0);
         }
 
-        public static GameEngine AGameEngine() {
+        public GameEngine AGameEngine() {
             return new GameEngine(eventBus);
         }
 
-        public static JoinToGameRequested AJoinToGameRequestedEvent(Character character) {
+        public JoinToGameRequested AJoinToGameRequestedEvent(Character character) {
             return new JoinToGameRequested(character);
         }
 
-        public static void Raised<T>(T gameEvent) where T : GameEvent {
+        public void Raised<T>(T gameEvent) where T : GameEvent {
             eventBus.Publish(gameEvent);
+        }
+
+        public void Dispose() {
+            eventBus.Dispose();
+        }
+
+        public TriedToAttack ATriedToAttackEvent(Character attacker, Character defender, int damage) {
+            return new TriedToAttack(attacker, defender, damage);
         }
     }
 }

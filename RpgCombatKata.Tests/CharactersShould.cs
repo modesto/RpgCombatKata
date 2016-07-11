@@ -6,7 +6,7 @@ using When = RpgCombatKata.Tests.TestFixtures;
 namespace RpgCombatKata.Tests
 {
     [TestFixture]
-    public class CharactersShould
+    public class CharactersShould : TestBase
     {
         [Test]
         public void start_with_1000_health_points() {
