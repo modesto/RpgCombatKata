@@ -51,5 +51,9 @@ namespace RpgCombatKata.Tests {
         public TriedToAttack ATriedToAttackEvent(Character attacker, Character defender, int damage) {
             return new TriedToAttack(attacker, defender, damage);
         }
+
+        public TriedToHeal ATriedToHealEvent(Character source, Character target, int heal) {
+            return new TriedToHeal(source, target, heal);
+        }
     }
 }

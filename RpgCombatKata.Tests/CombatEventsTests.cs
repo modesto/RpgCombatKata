@@ -35,5 +35,28 @@ namespace RpgCombatKata.Tests
             When.Raised(tryToAttack);
             attacker.Health.Should().Be(initialHealth);
         }
+
+        [Test]
+        public void a_character_can_heal_to_himself() {
+            var gameEngine = Given.AGameEngine();
+            var character = Given.ACharacter(900);
+            var heal = 50;
+            var tryToHeal = Given.ATriedToHealEvent(source: character, target: character, heal: heal);
+            When.Raised(tryToHeal);
+            character.Health.Should().Be(950);
+        }
+
+        [Test]
+        public void a_character_can_not_heal_to_an_enemy()
+        {
+            var gameEngine = Given.AGameEngine();
+            var character = Given.ACharacter();
+            var enemy = Given.ACharacter(900);
+            var heal = 50;
+            var tryToHeal = Given.ATriedToHealEvent(source: character, target: enemy, heal: heal);
+            When.Raised(tryToHeal);
+            enemy.Health.Should().Be(900);
+        }
+
     }
 }
