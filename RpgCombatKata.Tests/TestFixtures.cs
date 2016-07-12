@@ -23,13 +23,14 @@ namespace RpgCombatKata.Tests {
             var characterUid = Guid.NewGuid().ToString();
             var damagesObservable = eventBus.Subscriber<DamageCharacter>().Where(x => x.To == characterUid);
             var healsObservable = eventBus.Subscriber<HealCharacter>().Where(x => x.To == characterUid);
-            var healthCondition = GivenAHealthCondition(currentHealth: healthPoints);
+            var healthCondition = GivenTheHealthConditionOf(characterUid, currentHealth: healthPoints);
             return new Character(characterUid, damagesObservable, healsObservable, healthCondition);
         }
 
-        private CharacterHealthCondition GivenAHealthCondition(int? currentHealth) {
+        private CharacterHealthCondition GivenTheHealthConditionOf(string characterId, int? currentHealth) {
             var attacksObservable = eventBus.Subscriber<SuccessTo<Attack>>();
-            return currentHealth.HasValue ? new CharacterHealthCondition(attacksObservable, currentHealth.Value) : new CharacterHealthCondition(attacksObservable);
+            return currentHealth.HasValue ? new CharacterHealthCondition(characterId, attacksObservable, currentHealth.Value) 
+                                          : new CharacterHealthCondition(characterId, attacksObservable);
         }
 
 
@@ -117,13 +118,13 @@ namespace RpgCombatKata.Tests {
     }
 
     public class CharacterHealthCondition : HealthCondition {
-        public CharacterHealthCondition(IObservable<SuccessTo<Attack>> attacksObservable)
+        public CharacterHealthCondition(string characterId, IObservable<SuccessTo<Attack>> attacksObservable)
         {
             this.CurrentHealth = MaxHealth;
-            attacksObservable.Subscribe(x => ProcessAttack(x.Event));
+            attacksObservable.Where(x => x.Event.To == characterId).Subscribe(x => ProcessAttack(x.Event));
         }
-
-        public CharacterHealthCondition(IObservable<SuccessTo<Attack>> attacksObservable, int currentHealth) : this(attacksObservable)
+        
+        public CharacterHealthCondition(string characterId, IObservable<SuccessTo<Attack>> attacksObservable, int currentHealth) : this(characterId, attacksObservable)
         {
             this.CurrentHealth = currentHealth;
         }

@@ -11,8 +11,8 @@ namespace RpgCombatKata.Tests
     {
         [Test]
         public void start_with_1000_health_points() {
-            var character = Given.ACharacter();
-            character.Health.Should().Be(1000);
+            var character = Given.ALiveCharacter();
+            character.HealthCondition.CurrentHealth.Should().Be(1000);
         }
 
         [Test]
@@ -22,6 +22,17 @@ namespace RpgCombatKata.Tests
             When.Raised(attack);
             aCharacter.HealthCondition.CurrentHealth.Should().Be(900);
         }
+
+        [Test]
+        public void receive_only_damage_which_is_target()
+        {
+            var aCharacter = Given.ALiveCharacter();
+            var anotherCharacter = Given.ALiveCharacter();
+            var attack = Given.ASuccessAttack(to: aCharacter.Id, damage: 100);
+            When.Raised(attack);
+            anotherCharacter.HealthCondition.CurrentHealth.Should().Be(1000);
+        }
+
 
         [Test]
         public void be_healed() {
