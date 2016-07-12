@@ -17,6 +17,11 @@ namespace RpgCombatKata.Tests {
             return new Character(characterUid, damagesObservable, healsObservable, healthPoints, level);
         }
 
+        internal JoinFaction AJoinFactionAction(string characterId, string factionName)
+        {
+            return new JoinFaction(characterId, factionName);
+        }
+
         public DamageCharacter ADamageCharacterAction(string to, int damage) {
             return new DamageCharacter(to, damage);
         }
@@ -67,6 +72,14 @@ namespace RpgCombatKata.Tests {
 
         public GameMap AGameMap() {
             return Substitute.For<GameMap>();
+        }
+
+        public JoinFaction AJoinFactionAction() {
+            throw new NotImplementedException();
+        }
+
+        public Faction AFaction(string factionName) {
+            return new Faction(factionName, eventBus.Subscriber<JoinFaction>());
         }
     }
 }
