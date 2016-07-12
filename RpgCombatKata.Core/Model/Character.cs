@@ -56,7 +56,6 @@ namespace RpgCombatKata.Core.Model {
             else if (healingSubscriber == null) {
                 healingSubscriber = healsObservable.Subscribe(x => ReceiveHeal(x.Heal));
             }
-
         }
 
         public int Health { get; private set; }

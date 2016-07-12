@@ -72,11 +72,11 @@ namespace RpgCombatKata.Tests
 
         [Test]
         public void not_be_healed_over_max_life() {
-            var aCharacter = Given.ACharacter();
-            var expectedHealth = aCharacter.Health;
-            var heal = Given.AHealCharacterAction(to: aCharacter.Id, heal: 50);
-            When.Executed(heal);
-            aCharacter.Health.Should().Be(expectedHealth);
+            var aCharacter = Given.ALiveCharacter();
+            var expectedHealth = aCharacter.HealthCondition.CurrentHealth;
+            var heal = Given.ASuccessHeal(to: aCharacter.Id, healingPoints: 50);
+            When.Raised(heal);
+            aCharacter.HealthCondition.CurrentHealth.Should().Be(expectedHealth);
         }
 
     }
