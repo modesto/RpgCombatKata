@@ -60,6 +60,7 @@
     <Compile Include="IDisposableExtensionMethods.cs" />
     <Compile Include="Model\Actions\GameAction.cs" />
     <Compile Include="Model\Actions\HealCharacter.cs" />
+    <Compile Include="Model\Actions\LeaveFaction.cs" />
     <Compile Include="Model\Actions\JoinFaction.cs" />
     <Compile Include="Model\AttackRange.cs" />
     <Compile Include="Model\Character.cs" />

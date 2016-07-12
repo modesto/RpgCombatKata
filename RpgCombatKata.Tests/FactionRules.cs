@@ -32,5 +32,18 @@ namespace RpgCombatKata.Tests
             When.Executed(joinFaction);
             faction.TotalMembers.Should().Be(1);
         }
+
+        [Test]
+        public void a_character_can_leave_a_faction()
+        {
+            var character = Given.ACharacter();
+            var gameEngine = Given.AGameEngine();
+            var faction = Given.AFaction("AnyFaction");
+            var joinFaction = Given.AJoinFactionAction(character.Id, faction.Name);
+            var leaveFaction = Given.ALeaveFactionAction(character.Id, faction.Name);
+            When.Executed(joinFaction);
+            When.Executed(leaveFaction);
+            faction.TotalMembers.Should().Be(0);
+        }
     }
 }

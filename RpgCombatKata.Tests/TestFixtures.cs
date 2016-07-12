@@ -79,7 +79,11 @@ namespace RpgCombatKata.Tests {
         }
 
         public Faction AFaction(string factionName) {
-            return new Faction(factionName, eventBus.Subscriber<JoinFaction>());
+            return new Faction(factionName, eventBus.Subscriber<JoinFaction>(), eventBus.Subscriber<LeaveFaction>());
+        }
+
+        public LeaveFaction ALeaveFactionAction(string characterId, string factionName) {
+            return new LeaveFaction(characterId, factionName);
         }
     }
 }
