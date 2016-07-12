@@ -14,9 +14,15 @@ namespace RpgCombatKata.Core.Model {
             VerifyHealthStatus();
         }
 
-        private void ProcessAttack(Attack attack) => CurrentHealth -= attack.Damage;
+        private void ProcessAttack(Attack attack) {
+            CurrentHealth -= attack.Damage;
+            VerifyHealthStatus();
+        }
 
-        private void ProcessHeal(Heal heal) => CurrentHealth += heal.HealingPoints;
+        private void ProcessHeal(Heal heal) {
+            CurrentHealth += heal.HealingPoints;
+            VerifyHealthStatus();
+        }
 
         public int CurrentHealth { get; private set; }
 

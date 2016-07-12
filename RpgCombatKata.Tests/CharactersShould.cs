@@ -62,12 +62,12 @@ namespace RpgCombatKata.Tests
         [Test]
         public void not_be_healed_after_dead()
         {
-            var aCharacter = Given.ACharacter(healthPoints: 50);
-            var damage = Given.ADamageCharacterAction(to: aCharacter.Id, damage: 60);
-            When.Executed(damage);
-            var heal = Given.AHealCharacterAction(to: aCharacter.Id, heal: 50);
-            When.Executed(heal);
-            aCharacter.Health.Should().Be(0);
+            var aCharacter = Given.ALiveCharacter(healthPoints: 50);
+            var attack = Given.ASuccessAttack(to: aCharacter.Id, damage: 60);
+            When.Raised(attack);
+            var heal = Given.ASuccessHeal(to: aCharacter.Id, healingPoints: 50);
+            When.Raised(heal);
+            aCharacter.HealthCondition.CurrentHealth.Should().Be(0);
         }
 
         [Test]
