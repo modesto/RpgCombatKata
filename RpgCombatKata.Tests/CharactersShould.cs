@@ -54,9 +54,9 @@ namespace RpgCombatKata.Tests
         [Test]
         public void not_be_healed_if_born_dead() {
             var aDeadCharacter = Given.ADeadCharacter();
-            var heal = Given.AHealCharacterAction(to: aDeadCharacter.Id, heal: 50);
-            When.Executed(heal);
-            aDeadCharacter.Health.Should().Be(0);
+            var heal = Given.ASuccessHeal(to: aDeadCharacter.Id, healingPoints: 50);
+            When.Raised(heal);
+            aDeadCharacter.HealthCondition.CurrentHealth.Should().Be(0);
         }
 
         [Test]

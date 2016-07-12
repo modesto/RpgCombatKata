@@ -53,7 +53,7 @@ namespace RpgCombatKata.Tests {
         }
 
         public Character ADeadCharacter() {
-            return ACharacter(healthPoints: 0);
+            return ALiveCharacter(healthPoints: 0);
         }
 
         public GameEngine AGameEngine(GameMap gameMap = null, Factions factions = null) {
