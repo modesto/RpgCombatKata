@@ -15,14 +15,6 @@ namespace RpgCombatKata.Tests
         }
 
         [Test]
-        public void have_an_unique_identifier() {
-            var firstCharacter = Given.ACharacter();
-            var secondCharacter = Given.ACharacter();
-            firstCharacter.Id.Should().NotBeNullOrWhiteSpace();
-            firstCharacter.Id.Should().NotBe(secondCharacter.Id);
-        }
-
-        [Test]
         public void receive_damage() {
             var aCharacter = Given.ACharacter();
             var damage = Given.ADamageCharacterAction(to: aCharacter.Id, damage: 100);
