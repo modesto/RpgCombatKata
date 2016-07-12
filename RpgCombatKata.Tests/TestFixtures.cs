@@ -1,5 +1,6 @@
 using System;
 using System.Reactive.Linq;
+using FluentAssertions;
 using NSubstitute;
 using RpgCombatKata.Core;
 using RpgCombatKata.Core.Model;
@@ -16,6 +17,21 @@ namespace RpgCombatKata.Tests {
             var healsObservable = eventBus.Subscriber<HealCharacter>().Where(x => x.To == characterUid);
             return new Character(characterUid, damagesObservable, healsObservable, healthPoints, level);
         }
+
+        public Character ALiveCharacter(int? healthPoints = default(int?), int level = 1)
+        {
+            var characterUid = Guid.NewGuid().ToString();
+            var damagesObservable = eventBus.Subscriber<DamageCharacter>().Where(x => x.To == characterUid);
+            var healsObservable = eventBus.Subscriber<HealCharacter>().Where(x => x.To == characterUid);
+            var healthCondition = GivenAHealthCondition(currentHealth: healthPoints);
+            return new Character(characterUid, damagesObservable, healsObservable, healthCondition);
+        }
+
+        private CharacterHealthCondition GivenAHealthCondition(int? currentHealth) {
+            var attacksObservable = eventBus.Subscriber<SuccessTo<Attack>>();
+            return currentHealth.HasValue ? new CharacterHealthCondition(attacksObservable, currentHealth.Value) : new CharacterHealthCondition(attacksObservable);
+        }
+
 
         internal JoinFaction AJoinFactionAction(string characterId, string factionName)
         {
@@ -56,7 +72,7 @@ namespace RpgCombatKata.Tests {
             return new JoinToGameRequested(character);
         }
 
-        public void Raised<T>(T gameEvent) where T : GameEvent {
+        public void Raised<T>(T gameEvent) {
             eventBus.Publish(gameEvent);
         }
 
@@ -93,6 +109,51 @@ namespace RpgCombatKata.Tests {
 
         public Factions AFactionsService() {
             return new FactionsService();
+        }
+
+        public SuccessTo<Attack> ASuccessAttack(string to, int damage) {
+            return new SuccessTo<Attack>(new Attack(to, damage));
+        }
+    }
+
+    public class CharacterHealthCondition : HealthCondition {
+        public CharacterHealthCondition(IObservable<SuccessTo<Attack>> attacksObservable)
+        {
+            this.CurrentHealth = MaxHealth;
+            attacksObservable.Subscribe(x => ProcessAttack(x.Event));
+        }
+
+        public CharacterHealthCondition(IObservable<SuccessTo<Attack>> attacksObservable, int currentHealth) : this(attacksObservable)
+        {
+            this.CurrentHealth = currentHealth;
+        }
+
+        private void ProcessAttack(Attack attack) {
+            CurrentHealth -= attack.Damage;
+        }
+
+        public int CurrentHealth { get; private set; }
+
+        public int MaxHealth => 1000;
+    }
+
+    public class Attack : GameMessage {
+        public string To { get; }
+        public int Damage { get; }
+
+        public Attack(string to, int damage) {
+            To = to;
+            Damage = damage;
+        }
+    }
+
+    public interface GameMessage {}
+
+    public class SuccessTo<T> where T : GameMessage {
+        public T Event { get; }
+
+        public SuccessTo(T gameEvent) {
+            this.Event = gameEvent;
         }
     }
 }

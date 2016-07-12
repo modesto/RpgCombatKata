@@ -75,6 +75,8 @@
     <Compile Include="Model\FactionsService.cs" />
     <Compile Include="Model\GameEngine.cs" />
     <Compile Include="Model\GameMap.cs" />
+    <Compile Include="Model\HealthCondition.cs" />
+    <Compile Include="Model\LivingBeing.cs" />
     <Compile Include="Model\MeleeAttack.cs" />
     <Compile Include="Model\RangedAttack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

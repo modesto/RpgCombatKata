@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
+using RpgCombatKata.Core.Model;
 using Given = RpgCombatKata.Tests.TestFixtures;
 using When = RpgCombatKata.Tests.TestFixtures;
 
@@ -16,10 +17,10 @@ namespace RpgCombatKata.Tests
 
         [Test]
         public void receive_damage() {
-            var aCharacter = Given.ACharacter();
-            var damage = Given.ADamageCharacterAction(to: aCharacter.Id, damage: 100);
-            When.Executed(damage);
-            aCharacter.Health.Should().Be(900);
+            var aCharacter = Given.ALiveCharacter();
+            var attack = Given.ASuccessAttack(to: aCharacter.Id, damage: 100);
+            When.Raised(attack);
+            aCharacter.HealthCondition.CurrentHealth.Should().Be(900);
         }
 
         [Test]
