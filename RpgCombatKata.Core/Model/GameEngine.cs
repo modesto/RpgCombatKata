@@ -13,10 +13,12 @@ namespace RpgCombatKata.Core.Model {
         private List<Character> characters;
         private IDisposable tryToAttackSubscriber;
         private IDisposable tryToHealSubscriber;
+        private Factions factions;
 
-        public GameEngine(EventBus eventBus, GameMap gameMap) {
+        public GameEngine(EventBus eventBus, GameMap gameMap, Factions factions) {
             this.eventBus = eventBus;
             this.gameMap = gameMap;
+            this.factions = factions;
             characters = new List<Character>();
             SubscribeToJoinRequests();
             SubscribeToCombatEvents();
@@ -27,7 +29,11 @@ namespace RpgCombatKata.Core.Model {
                 .Where(gameEvent => gameEvent.Attacker.Id != gameEvent.Defender.Id)
                 .Where(gameEvent => gameMap.DistanceBetween(gameEvent.Attacker.Id, gameEvent.Defender.Id).TotalMeters <= gameEvent.AttackRange.Range.TotalMeters)
                 .Subscribe(TriedToAttack);
-            tryToHealSubscriber = eventBus.Subscriber<TriedToHeal>().Where(gameEvent => gameEvent.Source.Id == gameEvent.Target.Id).Subscribe(TriedToHeal);
+            tryToHealSubscriber = eventBus.Subscriber<TriedToHeal>().Where(gameEvent => AreAllies(gameEvent)).Subscribe(TriedToHeal);
+        }
+
+        private static bool AreAllies(TriedToHeal gameEvent) {
+            return gameEvent.Source.Id == gameEvent.Target.Id;
         }
 
         private void TriedToAttack(TriedToAttack gameEvent) {

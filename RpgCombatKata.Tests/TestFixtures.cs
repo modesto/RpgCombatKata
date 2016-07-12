@@ -38,13 +38,18 @@ namespace RpgCombatKata.Tests {
             return ACharacter(healthPoints: 0);
         }
 
-        public GameEngine AGameEngine(GameMap gameMap = null) {
+        public GameEngine AGameEngine(GameMap gameMap = null, Factions factions = null) {
             if (gameMap == null) {
                 gameMap = Substitute.For<GameMap>();
                 gameMap.DistanceBetween(Arg.Any<string>(), Arg.Any<string>()).Returns(Distance.FromMeters(0));
             }
 
-            return new GameEngine(eventBus, gameMap);
+            if (factions == null) {
+                factions = Substitute.For<Factions>();
+                factions.AreAlly(Arg.Any<string>(), Arg.Any<string>()).Returns(false);
+
+            }
+            return new GameEngine(eventBus, gameMap, factions);
         }
 
         public JoinToGameRequested AJoinToGameRequestedEvent(Character character) {
@@ -84,6 +89,10 @@ namespace RpgCombatKata.Tests {
 
         public LeaveFaction ALeaveFactionAction(string characterId, string factionName) {
             return new LeaveFaction(characterId, factionName);
+        }
+
+        public Factions AFactionsService() {
+            return new FactionsService();
         }
     }
 }

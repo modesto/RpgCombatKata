@@ -71,6 +71,8 @@
     <Compile Include="Model\Events\TriedToAttack.cs" />
     <Compile Include="Model\Events\TriedToHeal.cs" />
     <Compile Include="Model\Faction.cs" />
+    <Compile Include="Model\Factions.cs" />
+    <Compile Include="Model\FactionsService.cs" />
     <Compile Include="Model\GameEngine.cs" />
     <Compile Include="Model\GameMap.cs" />
     <Compile Include="Model\MeleeAttack.cs" />
