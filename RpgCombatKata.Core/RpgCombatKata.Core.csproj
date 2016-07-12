@@ -62,9 +62,11 @@
     <Compile Include="Model\Actions\HealCharacter.cs" />
     <Compile Include="Model\Actions\LeaveFaction.cs" />
     <Compile Include="Model\Actions\JoinFaction.cs" />
+    <Compile Include="Model\Attack.cs" />
     <Compile Include="Model\AttackRange.cs" />
     <Compile Include="Model\Character.cs" />
     <Compile Include="Model\Actions\DamageCharacter.cs" />
+    <Compile Include="Model\CharacterHealthCondition.cs" />
     <Compile Include="Model\Distance.cs" />
     <Compile Include="Model\Events\GameEvent.cs" />
     <Compile Include="Model\Events\JoinToGameRequested.cs" />
@@ -75,10 +77,13 @@
     <Compile Include="Model\FactionsService.cs" />
     <Compile Include="Model\GameEngine.cs" />
     <Compile Include="Model\GameMap.cs" />
+    <Compile Include="Model\GameMessage.cs" />
+    <Compile Include="Model\Heal.cs" />
     <Compile Include="Model\HealthCondition.cs" />
     <Compile Include="Model\LivingBeing.cs" />
     <Compile Include="Model\MeleeAttack.cs" />
     <Compile Include="Model\RangedAttack.cs" />
+    <Compile Include="Model\SuccessTo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

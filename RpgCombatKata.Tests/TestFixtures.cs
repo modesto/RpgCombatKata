@@ -29,8 +29,9 @@ namespace RpgCombatKata.Tests {
 
         private CharacterHealthCondition GivenTheHealthConditionOf(string characterId, int? currentHealth) {
             var attacksObservable = eventBus.Subscriber<SuccessTo<Attack>>();
-            return currentHealth.HasValue ? new CharacterHealthCondition(characterId, attacksObservable, currentHealth.Value) 
-                                          : new CharacterHealthCondition(characterId, attacksObservable);
+            var healsObservable = eventBus.Subscriber<SuccessTo<Heal>>();
+            return currentHealth.HasValue ? new CharacterHealthCondition(characterId, attacksObservable, healsObservable, currentHealth.Value) 
+                                          : new CharacterHealthCondition(characterId, attacksObservable, healsObservable);
         }
 
 
@@ -115,46 +116,9 @@ namespace RpgCombatKata.Tests {
         public SuccessTo<Attack> ASuccessAttack(string to, int damage) {
             return new SuccessTo<Attack>(new Attack(to, damage));
         }
-    }
 
-    public class CharacterHealthCondition : HealthCondition {
-        public CharacterHealthCondition(string characterId, IObservable<SuccessTo<Attack>> attacksObservable)
-        {
-            this.CurrentHealth = MaxHealth;
-            attacksObservable.Where(x => x.Event.To == characterId).Subscribe(x => ProcessAttack(x.Event));
-        }
-        
-        public CharacterHealthCondition(string characterId, IObservable<SuccessTo<Attack>> attacksObservable, int currentHealth) : this(characterId, attacksObservable)
-        {
-            this.CurrentHealth = currentHealth;
-        }
-
-        private void ProcessAttack(Attack attack) {
-            CurrentHealth -= attack.Damage;
-        }
-
-        public int CurrentHealth { get; private set; }
-
-        public int MaxHealth => 1000;
-    }
-
-    public class Attack : GameMessage {
-        public string To { get; }
-        public int Damage { get; }
-
-        public Attack(string to, int damage) {
-            To = to;
-            Damage = damage;
-        }
-    }
-
-    public interface GameMessage {}
-
-    public class SuccessTo<T> where T : GameMessage {
-        public T Event { get; }
-
-        public SuccessTo(T gameEvent) {
-            this.Event = gameEvent;
+        public SuccessTo<Heal> ASuccessHeal(string to, int healingPoints) {
+            return new SuccessTo<Heal>(new Heal(to, healingPoints));
         }
     }
 }
