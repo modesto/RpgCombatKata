@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
+using NSubstitute;
 using NUnit.Framework;
-using RpgCombatKata.Core.Model.Actions;
+using RpgCombatKata.Core.Model;
 
 namespace RpgCombatKata.Tests
 {
@@ -85,5 +82,61 @@ namespace RpgCombatKata.Tests
             defender.Health.Should().Be(initialHealth - expectedDamage);
         }
 
+        [Test]
+        public void melee_attack_must_be_in_range()
+        {
+            var gameEngine = Given.AGameEngine();
+            var gameMap = Given.AGameMap();
+            var attacker = Given.ACharacter();
+            var defender = Given.ACharacter();
+            gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(Distance.FromMeters(2));
+            var initialHealth = defender.Health;
+            var damage = 100;
+            var tryToAttack = Given.ATriedToAttackEvent(attacker: attacker, defender: defender, damage: damage);
+            When.Raised(tryToAttack);
+            defender.Health.Should().Be(initialHealth - damage);
+        }
+
+        [Test]
+        public void melee_attack_must_fail_if_is_not_in_range()
+        {
+            var gameMap = Given.AGameMap();
+            var gameEngine = Given.AGameEngine(gameMap);
+            var attacker = Given.ACharacter();
+            var defender = Given.ACharacter();
+            gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(Distance.FromMeters(3));
+            var initialHealth = defender.Health;
+            var damage = 100;
+            var tryToAttack = Given.ATriedToAttackEvent(attacker: attacker, defender: defender, damage: damage);
+            When.Raised(tryToAttack);
+            defender.Health.Should().Be(initialHealth);
+        }
+
+        [Test]
+        public void range_attack_must_be_in_range()
+        {
+            var gameMap = Given.AGameMap();
+            var gameEngine = Given.AGameEngine(gameMap);
+            var attacker = Given.ACharacter();
+            var defender = Given.ACharacter();
+            gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(Distance.FromMeters(20));
+            var initialHealth = defender.Health;
+            var damage = 100;
+            var tryToAttack = Given.ATriedToAttackEvent(attacker: attacker, defender: defender, damage: damage, kind: AttackRanges.Range());
+            When.Raised(tryToAttack);
+            defender.Health.Should().Be(initialHealth - damage);
+        }
+
+
+    }
+
+    public static class AttackRanges {
+        public static AttackRange Melee() {
+            return new MeleeAttack();
+        }
+
+        public static AttackRange Range() {
+            return new RangedAttack();
+        }
     }
 }

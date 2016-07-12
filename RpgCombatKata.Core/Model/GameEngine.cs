@@ -8,20 +8,25 @@ using RpgCombatKata.Core.Model.Events;
 namespace RpgCombatKata.Core.Model {
     public class GameEngine {
         private readonly EventBus eventBus;
+        private readonly GameMap gameMap;
         private IDisposable joinRequestSubscriber;
         private List<Character> characters;
         private IDisposable tryToAttackSubscriber;
         private IDisposable tryToHealSubscriber;
 
-        public GameEngine(EventBus eventBus) {
+        public GameEngine(EventBus eventBus, GameMap gameMap) {
             this.eventBus = eventBus;
+            this.gameMap = gameMap;
             characters = new List<Character>();
             SubscribeToJoinRequests();
             SubscribeToCombatEvents();
         }
 
         private void SubscribeToCombatEvents() {
-            tryToAttackSubscriber = eventBus.Subscriber<TriedToAttack>().Where(gameEvent => gameEvent.Attacker.Id != gameEvent.Defender.Id).Subscribe(TriedToAttack);
+            tryToAttackSubscriber = eventBus.Subscriber<TriedToAttack>()
+                .Where(gameEvent => gameEvent.Attacker.Id != gameEvent.Defender.Id)
+                .Where(gameEvent => gameMap.DistanceBetween(gameEvent.Attacker.Id, gameEvent.Defender.Id).TotalMeters <= gameEvent.AttackRange.Range.TotalMeters)
+                .Subscribe(TriedToAttack);
             tryToHealSubscriber = eventBus.Subscriber<TriedToHeal>().Where(gameEvent => gameEvent.Source.Id == gameEvent.Target.Id).Subscribe(TriedToHeal);
         }
 
@@ -29,7 +34,7 @@ namespace RpgCombatKata.Core.Model {
             var calculatedDamage = gameEvent.Damage;
             if (gameEvent.Attacker.Level >= gameEvent.Defender.Level + 5) {
                 calculatedDamage = (int)(calculatedDamage*1.5);
-            } else if (gameEvent.Attacker.Level <= gameEvent.Defender.Level + 5) {
+            } else if (gameEvent.Attacker.Level <= gameEvent.Defender.Level - 5) {
                 calculatedDamage = (int) (calculatedDamage - (calculatedDamage*0.5));
             }
             DamageCharacter damageCharacter = new DamageCharacter(gameEvent.Defender.Id, calculatedDamage);

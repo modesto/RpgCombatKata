@@ -1,6 +1,6 @@
 using System;
 using System.Reactive.Linq;
-using NUnit.Framework;
+using NSubstitute;
 using RpgCombatKata.Core;
 using RpgCombatKata.Core.Model;
 using RpgCombatKata.Core.Model.Actions;
@@ -33,8 +33,13 @@ namespace RpgCombatKata.Tests {
             return ACharacter(healthPoints: 0);
         }
 
-        public GameEngine AGameEngine() {
-            return new GameEngine(eventBus);
+        public GameEngine AGameEngine(GameMap gameMap = null) {
+            if (gameMap == null) {
+                gameMap = Substitute.For<GameMap>();
+                gameMap.DistanceBetween(Arg.Any<string>(), Arg.Any<string>()).Returns(Distance.FromMeters(0));
+            }
+
+            return new GameEngine(eventBus, gameMap);
         }
 
         public JoinToGameRequested AJoinToGameRequestedEvent(Character character) {
@@ -49,12 +54,19 @@ namespace RpgCombatKata.Tests {
             eventBus.Dispose();
         }
 
-        public TriedToAttack ATriedToAttackEvent(Character attacker, Character defender, int damage) {
-            return new TriedToAttack(attacker, defender, damage);
+        public TriedToAttack ATriedToAttackEvent(Character attacker, Character defender, int damage, AttackRange kind = null) {
+            if (kind == null) {
+                kind = new MeleeAttack();
+            }
+            return new TriedToAttack(attacker, defender, damage, kind);
         }
 
         public TriedToHeal ATriedToHealEvent(Character source, Character target, int heal) {
             return new TriedToHeal(source, target, heal);
+        }
+
+        public GameMap AGameMap() {
+            return Substitute.For<GameMap>();
         }
     }
 }
