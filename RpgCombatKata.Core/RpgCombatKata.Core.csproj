@@ -59,13 +59,11 @@
     <Compile Include="EventBus.cs" />
     <Compile Include="IDisposableExtensionMethods.cs" />
     <Compile Include="Model\Actions\GameAction.cs" />
-    <Compile Include="Model\Actions\HealCharacter.cs" />
     <Compile Include="Model\Actions\LeaveFaction.cs" />
     <Compile Include="Model\Actions\JoinFaction.cs" />
     <Compile Include="Model\Attack.cs" />
     <Compile Include="Model\AttackRange.cs" />
     <Compile Include="Model\Character.cs" />
-    <Compile Include="Model\Actions\DamageCharacter.cs" />
     <Compile Include="Model\CharacterHealthCondition.cs" />
     <Compile Include="Model\CharactersRepository.cs" />
     <Compile Include="Model\HealingRules.cs" />
@@ -73,8 +71,6 @@
     <Compile Include="Model\Distance.cs" />
     <Compile Include="Model\Events\GameEvent.cs" />
     <Compile Include="Model\Events\JoinToGameRequested.cs" />
-    <Compile Include="Model\Events\TriedToAttack.cs" />
-    <Compile Include="Model\Events\TriedToHeal.cs" />
     <Compile Include="Model\Faction.cs" />
     <Compile Include="Model\Factions.cs" />
     <Compile Include="Model\FactionsService.cs" />
