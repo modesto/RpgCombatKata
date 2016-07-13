@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using RpgCombatKata.Core.Model.Actions;
 
 namespace RpgCombatKata.Core.Model {
