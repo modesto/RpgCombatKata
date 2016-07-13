@@ -5,7 +5,7 @@ namespace RpgCombatKata.Core.Model
     public class HealingRules : GameRules
     {
         public Func<T, T> GetFilterFor<T>() where T : class {
-            return new Func<T, T>(ApplyFilter<T>);
+            return ApplyFilter<T>;
         }
 
         private T ApplyFilter<T>(T gameEvent) where T : class {
