@@ -3,6 +3,7 @@ using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
 using RpgCombatKata.Core.Model;
+using RpgCombatKata.Core.Model.Rules;
 
 namespace RpgCombatKata.Tests
 {

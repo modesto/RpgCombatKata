@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
+using RpgCombatKata.Core.Model.Commands;
 
-namespace RpgCombatKata.Core.Model
+namespace RpgCombatKata.Core.Model.Rules
 {
     public class RulesEngine
     {

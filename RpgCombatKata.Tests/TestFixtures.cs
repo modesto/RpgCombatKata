@@ -6,7 +6,9 @@ using NSubstitute;
 using RpgCombatKata.Core;
 using RpgCombatKata.Core.Model;
 using RpgCombatKata.Core.Model.Actions;
+using RpgCombatKata.Core.Model.Commands;
 using RpgCombatKata.Core.Model.Events;
+using RpgCombatKata.Core.Model.Rules;
 
 namespace RpgCombatKata.Tests {
     public class TestFixtures : IDisposable {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RpgCombatKata.Core.Model
+namespace RpgCombatKata.Core.Model.Rules
 {
     public class HealingRules : GameRules
     {
