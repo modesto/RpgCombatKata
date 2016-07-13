@@ -57,5 +57,24 @@ namespace RpgCombatKata.Tests
             When.Raised(triedToHeal);
             anAlly.HealthCondition.CurrentHealth.Should().Be(950);
         }
+
+        [Test]
+        public void a_character_can_not_attack_an_ally()
+        {
+            var faction = Given.AFaction();
+            var factionRules = Given.AFactionCombatRules(faction);
+            var rulesEngine = Given.ARulesEngine(factionRules);
+            var attacker = Given.ALiveCharacter();
+            var defender = Given.ALiveCharacter();
+            var initialHealth = defender.HealthCondition.CurrentHealth;
+            var joinFaction = Given.ATriedToJoinFaction(attacker.Id, faction.Id);
+            var enemyJoinFaction = Given.ATriedToJoinFaction(defender.Id, faction.Id);
+            When.Raised(joinFaction);
+            When.Raised(enemyJoinFaction);
+            var damage = 100;
+            var attack = Given.ATriedToAttackEvent(attacker.Id, defender.Id, damage: damage);
+            When.Raised(attack);
+            defender.HealthCondition.CurrentHealth.Should().Be(initialHealth);
+        }
     }
 }
