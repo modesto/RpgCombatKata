@@ -6,6 +6,7 @@ using NSubstitute;
 using RpgCombatKata.Core;
 using RpgCombatKata.Core.Model;
 using RpgCombatKata.Core.Model.Actions;
+using RpgCombatKata.Core.Model.Attacks;
 using RpgCombatKata.Core.Model.Characters;
 using RpgCombatKata.Core.Model.Commands;
 using RpgCombatKata.Core.Model.Events;

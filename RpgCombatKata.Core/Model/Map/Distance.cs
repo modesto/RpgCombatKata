@@ -1,7 +1,8 @@
 // From http://stackoverflow.com/questions/2357795/distance-feet-inches-class-or-struct
+
 using System;
 
-namespace RpgCombatKata.Core.Model {
+namespace RpgCombatKata.Core.Model.Map {
     public struct Distance : IEquatable<Distance>, IComparable<Distance>
     {
         private const double MetersPerKilometer = 1000.0;
