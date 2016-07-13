@@ -66,9 +66,8 @@
     <Compile Include="Model\Characters\Character.cs" />
     <Compile Include="Model\Characters\CharacterHealthCondition.cs" />
     <Compile Include="Model\Characters\CharactersRepository.cs" />
-    <Compile Include="Model\Factions\FactionRules.cs" />
+    <Compile Include="Model\Factions\FactionCombatRules.cs" />
     <Compile Include="Model\Factions\FactionsRepository.cs" />
-    <Compile Include="Model\Combat\HealingRules.cs" />
     <Compile Include="Model\Combat\CombatRules.cs" />
     <Compile Include="Model\Map\Distance.cs" />
     <Compile Include="Model\Events\GameEvent.cs" />

@@ -41,8 +41,7 @@ namespace RpgCombatKata.Tests
 
         [Test]
         public void a_character_can_heal_to_himself() {
-            var healingRules = Given.AHealingRules();
-            var rulesEngine = Given.ARulesEngine(healingRules);
+            var rulesEngine = Given.ARulesEngine();
             var healer = Given.ALiveCharacter(healthPoints: 900);
             var initialHealth = healer.HealthCondition.CurrentHealth;
             var pointsToHeal = 50;
@@ -54,8 +53,8 @@ namespace RpgCombatKata.Tests
         [Test]
         public void a_character_can_not_heal_to_an_enemy()
         {
-            var healingRules = Given.AHealingRules();
-            var rulesEngine = Given.ARulesEngine(healingRules);
+            var factionCombatRules = Given.AFactionCombatRules();
+            var rulesEngine = Given.ARulesEngine(factionCombatRules);
             var healer = Given.ALiveCharacter();
             var enemy = Given.ALiveCharacter(healthPoints: 900);
             var initialHealth = enemy.HealthCondition.CurrentHealth;

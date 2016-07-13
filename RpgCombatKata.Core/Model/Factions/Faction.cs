@@ -26,5 +26,9 @@ namespace RpgCombatKata.Core.Model.Factions
         {
             if (members.Contains(action.Event.CharacterId)) members.Remove(action.Event.CharacterId);
         }
+
+        public bool AreAllies(string aCharacterId, string anotherCharacterId) {
+            return (members.Contains(aCharacterId) && members.Contains(anotherCharacterId));
+        }
     }
 }

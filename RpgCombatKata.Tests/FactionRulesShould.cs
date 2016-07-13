@@ -41,21 +41,21 @@ namespace RpgCombatKata.Tests
             faction.TotalMembers.Should().Be(0);
         }
 
-        //[Test]
-        //public void a_character_can_heal_an_ally()
-        //{
-        //    var character = Given.ALiveCharacter();
-        //    var anAlly = Given.ALiveCharacter(healthPoints: 900);
-        //    var gameEngine = Given.AGameEngine();
-        //    var faction = Given.AFaction("AnyFaction");
-        //    var joinFaction = Given.AJoinFactionAction(character.Id, faction.Id);
-        //    var allyJoinFaction = Given.AJoinFactionAction(anAlly.Id, faction.Id);
-        //    var triedToHeal = Given.ATriedToHealEvent(character, anAlly, 50);
-        //    When.Executed(joinFaction);
-        //    When.Executed(allyJoinFaction);
-        //    When.Raised(triedToHeal);
-        //    anAlly.Health.Should().Be(950);
-        //}
-
+        [Test]
+        public void a_character_can_heal_an_ally()
+        {
+            var character = Given.ALiveCharacter();
+            var anAlly = Given.ALiveCharacter(healthPoints: 900);
+            var faction = Given.AFaction();
+            var factionRules = Given.AFactionCombatRules(faction);
+            var rulesEngine = Given.ARulesEngine(factionRules);
+            var joinFaction = Given.ATriedToJoinFaction(character.Id, faction.Id);
+            var allyJoinFaction = Given.ATriedToJoinFaction(anAlly.Id, faction.Id);
+            var triedToHeal = Given.ATriedToHealEvent(character.Id, anAlly.Id, 50);
+            When.Raised(joinFaction);
+            When.Raised(allyJoinFaction);
+            When.Raised(triedToHeal);
+            anAlly.HealthCondition.CurrentHealth.Should().Be(950);
+        }
     }
 }
