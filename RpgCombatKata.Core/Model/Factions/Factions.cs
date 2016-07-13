@@ -1,4 +1,4 @@
-﻿namespace RpgCombatKata.Core.Model
+﻿namespace RpgCombatKata.Core.Model.Factions
 {
     public interface Factions
     {

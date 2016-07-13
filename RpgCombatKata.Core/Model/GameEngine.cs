@@ -11,9 +11,9 @@ namespace RpgCombatKata.Core.Model {
         private readonly EventBus eventBus;
         private IDisposable joinRequestSubscriber;
         private List<Character> characters;
-        private Factions factions;
+        private Factions.Factions factions;
 
-        public GameEngine(EventBus eventBus, GameMap gameMap, Factions factions) {
+        public GameEngine(EventBus eventBus, GameMap gameMap, Factions.Factions factions) {
             this.eventBus = eventBus;
             this.factions = factions;
             characters = new List<Character>();

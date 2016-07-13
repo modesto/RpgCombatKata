@@ -1,10 +1,9 @@
 ﻿using System;
 using RpgCombatKata.Core.Model.Characters;
-using RpgCombatKata.Core.Model.Commands;
 
-namespace RpgCombatKata.Core.Model.Rules
+namespace RpgCombatKata.Core.Model.Combat
 {
-    public class LevelBasedCombatRules : Rules
+    public class LevelBasedCombatRules : Rules.Rules
     {
         private CharactersRepository charactersRepository;
 

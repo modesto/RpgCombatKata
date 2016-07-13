@@ -1,16 +1,15 @@
 ﻿using System;
-using RpgCombatKata.Core.Model.Commands;
 
-namespace RpgCombatKata.Core.Model.Rules
+namespace RpgCombatKata.Core.Model.Combat
 {
-    public class CombatRules : Rules
+    public class CombatRules : Rules.Rules
     {
         public Func<T, T> GetFilterFor<T>() where T : class {
             return ApplyFilter<T>;
         }
 
         private T ApplyFilter<T>(T gameEvent) where T : class {
-            TriedTo<Attack> attack = gameEvent as TriedTo<Attack>;
+            var attack = gameEvent as TriedTo<Attack>;
             if (attack?.Event?.From == attack?.Event?.To) return default(T);
             return (T)Convert.ChangeType(attack, typeof(T));
         }

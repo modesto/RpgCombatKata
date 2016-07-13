@@ -1,9 +1,8 @@
 ﻿using System;
-using RpgCombatKata.Core.Model.Commands;
 
-namespace RpgCombatKata.Core.Model.Rules
+namespace RpgCombatKata.Core.Model.Combat
 {
-    public class HealingRules : Rules
+    public class HealingRules : Rules.Rules
     {
         public Func<T, T> GetFilterFor<T>() where T : class {
             return ApplyFilter<T>;

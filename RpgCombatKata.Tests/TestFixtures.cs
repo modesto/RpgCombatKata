@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Linq;
 using NSubstitute;
 using RpgCombatKata.Core;
 using RpgCombatKata.Core.Model;
-using RpgCombatKata.Core.Model.Actions;
-using RpgCombatKata.Core.Model.Attacks;
 using RpgCombatKata.Core.Model.Characters;
-using RpgCombatKata.Core.Model.Commands;
+using RpgCombatKata.Core.Model.Combat;
 using RpgCombatKata.Core.Model.Events;
+using RpgCombatKata.Core.Model.Factions;
 using RpgCombatKata.Core.Model.Map;
 using RpgCombatKata.Core.Model.Rules;
 
@@ -38,16 +36,6 @@ namespace RpgCombatKata.Tests {
             var healsObservable = eventBus.Subscriber<SuccessTo<Heal>>();
             return currentHealth.HasValue ? new CharacterHealthCondition(characterId, attacksObservable, healsObservable, currentHealth.Value) 
                                           : new CharacterHealthCondition(characterId, attacksObservable, healsObservable);
-        }
-
-
-        internal JoinFaction AJoinFactionAction(string characterId, string factionName)
-        {
-            return new JoinFaction(characterId, factionName);
-        }
-
-        public void Executed<T>(T action) where T: GameAction {
-            eventBus.Publish(action);
         }
 
         public Character ADeadCharacter() {
@@ -90,16 +78,15 @@ namespace RpgCombatKata.Tests {
             return Substitute.For<GameMap>();
         }
 
-        public Faction AFaction(string factionName) {
-            return new Faction(factionName, eventBus.Subscriber<JoinFaction>(), eventBus.Subscriber<LeaveFaction>());
+
+        public Faction AFaction() {
+            var factionId = Guid.NewGuid().ToString();
+            return new Faction(factionId, eventBus.Subscriber<SuccessTo<JoinFaction>>(), eventBus.Subscriber<SuccessTo<LeaveFaction>>());
         }
 
-        public LeaveFaction ALeaveFactionAction(string characterId, string factionName) {
-            return new LeaveFaction(characterId, factionName);
-        }
-
-        public Factions AFactionsService() {
-            return new FactionsService();
+        public TriedTo<LeaveFaction> ATriedToLeaveFactionAction(string characterId, string factionId)
+        {
+            return new TriedTo<LeaveFaction>(new LeaveFaction(characterId, factionId));
         }
 
         public SuccessTo<Attack> ASuccessAttack(string from, string to, int damage) {
@@ -117,6 +104,11 @@ namespace RpgCombatKata.Tests {
             return ARulesEngine(new List<Rules>() {rules});
         }
 
+        public RulesEngine ARulesEngine()
+        {
+            return ARulesEngine(new List<Rules>());
+        }
+        
         public RulesEngine ARulesEngine(List<Rules> rules)
         {
             return new RulesEngine(eventBus, rules);
@@ -140,5 +132,15 @@ namespace RpgCombatKata.Tests {
         public MapBasedCombatRules AMapBasedCombatRules(GameMap gameMap) {
             return new MapBasedCombatRules(gameMap);
         }
+
+        public TriedTo<JoinFaction> ATriedToJoinFaction(string characerId, string factionId) {
+            return new TriedTo<JoinFaction>(new JoinFaction(characerId, factionId));
+        }
+
+        //public FactionRules AFactionRules(Faction aFaction) {
+        //    var factionsRepository = Substitute.For<FactionsRepository>();
+        //    factionsRepository.GetFaction(Arg.Is<string>(aFaction.Id)).Returns(aFaction);
+        //    return new FactionRules(factionsRepository);
+        //}
     }
 }

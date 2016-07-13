@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
-using RpgCombatKata.Core.Model.Commands;
+using RpgCombatKata.Core.Model.Combat;
+using RpgCombatKata.Core.Model.Factions;
 
 namespace RpgCombatKata.Core.Model.Rules
 {
@@ -15,6 +16,8 @@ namespace RpgCombatKata.Core.Model.Rules
             this.gameRules = gameRules;
             RegisterFiltersForTriedTo<Attack>();
             RegisterFiltersForTriedTo<Heal>();
+            RegisterFiltersForTriedTo<JoinFaction>();
+            RegisterFiltersForTriedTo<LeaveFaction>();
         }
 
         private void RegisterFiltersForTriedTo<T>() where T : GameMessage {

@@ -1,6 +1,4 @@
-using RpgCombatKata.Core.Model.Attacks;
-
-namespace RpgCombatKata.Core.Model.Commands {
+namespace RpgCombatKata.Core.Model.Combat {
     public class Attack : GameMessage {
         public string From { get; }
         public string To { get; }
