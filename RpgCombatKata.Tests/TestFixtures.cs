@@ -107,7 +107,7 @@ namespace RpgCombatKata.Tests {
         }
 
         public SuccessTo<Attack> ASuccessAttack(string from, string to, int damage) {
-            return new SuccessTo<Attack>(new Attack(@from, to, damage,AttackRanges.Melee()));
+            return new SuccessTo<Attack>(new Attack(from, to, damage,AttackRanges.Melee()));
         }
 
         public SuccessTo<Attack> ASuccessAttack(string to, int damage) {

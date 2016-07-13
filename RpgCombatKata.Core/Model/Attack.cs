@@ -5,7 +5,7 @@ namespace RpgCombatKata.Core.Model {
         public int Damage { get; private set; }
         public AttackRange AttackRange { get; }
 
-        public Attack(string @from, string to, int damage, AttackRange kind) {
+        public Attack(string from, string to, int damage, AttackRange kind) {
             From = from;
             To = to;
             Damage = damage;

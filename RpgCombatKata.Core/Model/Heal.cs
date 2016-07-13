@@ -5,7 +5,7 @@ namespace RpgCombatKata.Core.Model {
         public int HealingPoints { get; }
 
         public Heal(string from, string to, int healingPoints) {
-            From = @from;
+            From = from;
             To = to;
             HealingPoints = healingPoints;
         }
