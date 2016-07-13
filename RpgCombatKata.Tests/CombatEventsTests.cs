@@ -3,8 +3,8 @@ using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
 using RpgCombatKata.Core.Model;
-using RpgCombatKata.Core.Model.Attacks;
 using RpgCombatKata.Core.Model.Characters;
+using RpgCombatKata.Core.Model.Combat;
 using RpgCombatKata.Core.Model.Map;
 using RpgCombatKata.Core.Model.Rules;
 

@@ -1,5 +1,5 @@
 using System;
-using RpgCombatKata.Core.Model.Commands;
+using RpgCombatKata.Core.Model.Combat;
 
 namespace RpgCombatKata.Core.Model.Map {
     public class MapBasedCombatRules : Rules.Rules {

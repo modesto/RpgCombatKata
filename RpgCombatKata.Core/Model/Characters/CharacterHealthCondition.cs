@@ -1,6 +1,6 @@
 using System;
 using System.Reactive.Linq;
-using RpgCombatKata.Core.Model.Commands;
+using RpgCombatKata.Core.Model.Combat;
 
 namespace RpgCombatKata.Core.Model.Characters {
     public class CharacterHealthCondition : HealthCondition {
