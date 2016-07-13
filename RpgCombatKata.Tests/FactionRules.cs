@@ -8,7 +8,7 @@ namespace RpgCombatKata.Tests
     {
         [Test]
         public void a_character_can_join_a_faction() {
-            var character = Given.ACharacter();
+            var character = Given.ALiveCharacter();
             var gameEngine = Given.AGameEngine();
             var faction = Given.AFaction("AnyFaction");
             var joinFaction = Given.AJoinFactionAction(character.Id, faction.Name);
@@ -19,7 +19,7 @@ namespace RpgCombatKata.Tests
         [Test]
         public void a_character_can_not_join_a_faction_twice()
         {
-            var character = Given.ACharacter();
+            var character = Given.ALiveCharacter();
             var gameEngine = Given.AGameEngine();
             var faction = Given.AFaction("AnyFaction");
             var joinFaction = Given.AJoinFactionAction(character.Id, faction.Name);
@@ -31,7 +31,7 @@ namespace RpgCombatKata.Tests
         [Test]
         public void a_character_can_leave_a_faction() {
             var factions = Given.AFactionsService();
-            var character = Given.ACharacter();
+            var character = Given.ALiveCharacter();
             var gameEngine = Given.AGameEngine(factions: factions);
             var faction = Given.AFaction("AnyFaction");
             var joinFaction = Given.AJoinFactionAction(character.Id, faction.Name);
@@ -44,8 +44,8 @@ namespace RpgCombatKata.Tests
         //[Test]
         //public void a_character_can_heal_an_ally()
         //{
-        //    var character = Given.ACharacter();
-        //    var anAlly = Given.ACharacter(healthPoints: 900);
+        //    var character = Given.ALiveCharacter();
+        //    var anAlly = Given.ALiveCharacter(healthPoints: 900);
         //    var gameEngine = Given.AGameEngine();
         //    var faction = Given.AFaction("AnyFaction");
         //    var joinFaction = Given.AJoinFactionAction(character.Id, faction.Name);

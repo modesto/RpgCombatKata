@@ -12,13 +12,6 @@ namespace RpgCombatKata.Tests {
     public class TestFixtures : IDisposable {
         private readonly EventBus eventBus = new EventBus();
 
-        public Character ACharacter(int? healthPoints = default(int?), int level = 1) {
-            var characterUid = Guid.NewGuid().ToString();
-            var damagesObservable = eventBus.Subscriber<DamageCharacter>().Where(x => x.To == characterUid);
-            var healsObservable = eventBus.Subscriber<HealCharacter>().Where(x => x.To == characterUid);
-            return new Character(characterUid, damagesObservable, healsObservable, healthPoints, level);
-        }
-
         public TriedTo<Attack> ATriedToAttackEvent(string from, string to, int damage, AttackRange kind = null)
         {
             if (kind == null)
@@ -31,10 +24,8 @@ namespace RpgCombatKata.Tests {
         public Character ALiveCharacter(int? healthPoints = default(int?), int level = 1)
         {
             var characterUid = Guid.NewGuid().ToString();
-            var damagesObservable = eventBus.Subscriber<DamageCharacter>().Where(x => x.To == characterUid);
-            var healsObservable = eventBus.Subscriber<HealCharacter>().Where(x => x.To == characterUid);
             var healthCondition = GivenTheHealthConditionOf(characterUid, currentHealth: healthPoints);
-            return new Character(characterUid, damagesObservable, healsObservable, healthCondition, level);
+            return new Character(characterUid, healthCondition, level);
         }
 
         private CharacterHealthCondition GivenTheHealthConditionOf(string characterId, int? currentHealth) {

@@ -10,7 +10,7 @@ namespace RpgCombatKata.Tests
     {
         [Test]
         public void allow_a_character_to_join_game() {
-            var aCharacter = Given.ACharacter();
+            var aCharacter = Given.ALiveCharacter();
             var aGameEngine = Given.AGameEngine();
             var joinToGameRequested = Given.AJoinToGameRequestedEvent(aCharacter);
             When.Raised(joinToGameRequested);
@@ -21,8 +21,8 @@ namespace RpgCombatKata.Tests
         public void allow_characters_to_join_game()
         {
             var aGameEngine = Given.AGameEngine();
-            var firstCharacter = Given.ACharacter();
-            var secondCharacter = Given.ACharacter();
+            var firstCharacter = Given.ALiveCharacter();
+            var secondCharacter = Given.ALiveCharacter();
             var firstJoinToGameRequested = Given.AJoinToGameRequestedEvent(firstCharacter);
             var secondJoinToGameRequested = Given.AJoinToGameRequestedEvent(secondCharacter);
             When.Raised(firstJoinToGameRequested);
@@ -34,7 +34,7 @@ namespace RpgCombatKata.Tests
         [Test]
         public void aoid_a_character_to_join_game_twice()
         {
-            var aCharacter = Given.ACharacter();
+            var aCharacter = Given.ALiveCharacter();
             var aGameEngine = Given.AGameEngine();
             var joinToGameRequested = Given.AJoinToGameRequestedEvent(aCharacter);
             When.Raised(joinToGameRequested);
