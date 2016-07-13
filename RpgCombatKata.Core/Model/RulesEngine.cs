@@ -17,16 +17,22 @@ namespace RpgCombatKata.Core.Model
             this.eventBus = eventBus;
             this.gameRules = gameRules;
             RegisterFiltersForTriedTo<Attack>();
+            RegisterFiltersForTriedTo<Heal>();
         }
 
         private void RegisterFiltersForTriedTo<T>() where T : GameMessage {
             var observer = eventBus.Subscriber<TriedTo<T>>();
-            var rules = gameRules.First();
-            if (rules.CanApplyTo<TriedTo<T>>()) {
+            foreach(var rules in gameRules) {
+                if (!rules.CanApplyTo<TriedTo<T>>()) continue;
                 var filter = rules.GetFilterFor<TriedTo<T>>();
                 observer = observer.Select(filter);
             }
-            observer.Subscribe(x => eventBus.Publish(new SuccessTo<T>(x.Event)));
+            observer.Subscribe(EvaluateFilterResult);
+        }
+
+        private void EvaluateFilterResult<T>(TriedTo<T> x) where T : GameMessage {
+            if (x == null) return;
+            eventBus.Publish(new SuccessTo<T>(x.Event));
         }
     }
 }

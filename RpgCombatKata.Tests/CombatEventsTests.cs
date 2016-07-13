@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
@@ -25,62 +26,75 @@ namespace RpgCombatKata.Tests
         [Test]
         public void a_character_can_not_attack_to_himself()
         {
-            var gameEngine = Given.AGameEngine();
-            var attacker = Given.ACharacter();
-            var initialHealth = attacker.Health;
+            var combatRules = Given.ACombatRules();
+            var rulesEngine = Given.ARulesEngine(combatRules);
+            var attacker = Given.ALiveCharacter();
+            var initialHealth = attacker.HealthCondition.CurrentHealth;
             var damage = 100;
-            var tryToAttack = Given.ATriedToAttackEvent(attacker: attacker, defender: attacker, damage: damage);
-            When.Raised(tryToAttack);
-            attacker.Health.Should().Be(initialHealth);
+            var attack = Given.ATriedToAttackEvent(attacker.Id, attacker.Id, damage: damage);
+            When.Raised(attack);
+            attacker.HealthCondition.CurrentHealth.Should().Be(initialHealth);
         }
 
         [Test]
         public void a_character_can_heal_to_himself() {
-            var gameEngine = Given.AGameEngine();
-            var character = Given.ACharacter(900);
-            var heal = 50;
-            var tryToHeal = Given.ATriedToHealEvent(source: character, target: character, heal: heal);
-            When.Raised(tryToHeal);
-            character.Health.Should().Be(950);
+            var healingRules = Given.AHealingRules();
+            var rulesEngine = Given.ARulesEngine(healingRules);
+            var healer = Given.ALiveCharacter(healthPoints: 900);
+            var initialHealth = healer.HealthCondition.CurrentHealth;
+            var pointsToHeal = 50;
+            var heal = Given.ATriedToHealEvent(healer.Id, healer.Id, heal: pointsToHeal);
+            When.Raised(heal);
+            healer.HealthCondition.CurrentHealth.Should().Be(initialHealth + pointsToHeal);
         }
 
         [Test]
         public void a_character_can_not_heal_to_an_enemy()
         {
-            var gameEngine = Given.AGameEngine();
-            var character = Given.ACharacter();
-            var enemy = Given.ACharacter(900);
-            var heal = 50;
-            var tryToHeal = Given.ATriedToHealEvent(source: character, target: enemy, heal: heal);
-            When.Raised(tryToHeal);
-            enemy.Health.Should().Be(900);
+            var healingRules = Given.AHealingRules();
+            var rulesEngine = Given.ARulesEngine(healingRules);
+            var healer = Given.ALiveCharacter();
+            var enemy = Given.ALiveCharacter(healthPoints: 900);
+            var initialHealth = enemy.HealthCondition.CurrentHealth;
+            var pointsToHeal = 50;
+            var heal = Given.ATriedToHealEvent(healer.Id, enemy.Id, heal: pointsToHeal);
+            When.Raised(heal);
+            enemy.HealthCondition.CurrentHealth.Should().Be(initialHealth);
         }
 
         [Test]
         public void attacks_do_more_damage_to_low_level_characters() {
-            var gameEngine = Given.AGameEngine();
-            var attacker = Given.ACharacter(level: 10);
-            var defender = Given.ACharacter(level: 5);
-            var initialHealth = defender.Health;
+            var attacker = Given.ALiveCharacter(level: 10);
+            var defender = Given.ALiveCharacter(level: 5);
+            List<Character> charactersStubData = new List<Character>() {attacker, defender};
+            var combatRules = Given.ACombatRules();
+            var levelBasedCombatRules = Given.ALevelBasedCombatRules(charactersStubData);
+            var rules = new List<GameRules>() {combatRules, levelBasedCombatRules};
+            var rulesEngine = Given.ARulesEngine(rules);
+            var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
             var expectedDamage = (int)(damage * 1.5);
-            var tryToAttack = Given.ATriedToAttackEvent(attacker: attacker, defender: defender, damage: damage);
-            When.Raised(tryToAttack);
-            defender.Health.Should().Be(initialHealth - expectedDamage);
+            var attack = Given.ATriedToAttackEvent(attacker.Id, defender.Id, damage: damage);
+            When.Raised(attack);
+            defender.HealthCondition.CurrentHealth.Should().Be(initialHealth - expectedDamage);
         }
 
         [Test]
         public void attacks_do_less_damage_to_high_level_characters()
         {
-            var gameEngine = Given.AGameEngine();
-            var attacker = Given.ACharacter(level: 5);
-            var defender = Given.ACharacter(level: 10);
-            var initialHealth = defender.Health;
+            var attacker = Given.ALiveCharacter(level: 5);
+            var defender = Given.ALiveCharacter(level: 10);
+            List<Character> charactersStubData = new List<Character>() { attacker, defender };
+            var combatRules = Given.ACombatRules();
+            var levelBasedCombatRules = Given.ALevelBasedCombatRules(charactersStubData);
+            var rules = new List<GameRules>() { combatRules, levelBasedCombatRules };
+            var rulesEngine = Given.ARulesEngine(rules);
+            var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
             var expectedDamage = (int)(damage - (damage * 0.5));
-            var tryToAttack = Given.ATriedToAttackEvent(attacker: attacker, defender: defender, damage: damage);
-            When.Raised(tryToAttack);
-            defender.Health.Should().Be(initialHealth - expectedDamage);
+            var attack = Given.ATriedToAttackEvent(attacker.Id, defender.Id, damage: damage);
+            When.Raised(attack);
+            defender.HealthCondition.CurrentHealth.Should().Be(initialHealth - expectedDamage);
         }
 
         [Test]

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Linq;
 using FluentAssertions;
 using NSubstitute;
@@ -21,7 +22,7 @@ namespace RpgCombatKata.Tests {
 
         public TriedTo<Attack> ATriedToAttackEvent(string from, string to, int damage)
         {
-            return new TriedTo<Attack>(new Attack(to, damage));
+            return new TriedTo<Attack>(new Attack(from, to, damage));
         }
 
         public Character ALiveCharacter(int? healthPoints = default(int?), int level = 1)
@@ -30,7 +31,7 @@ namespace RpgCombatKata.Tests {
             var damagesObservable = eventBus.Subscriber<DamageCharacter>().Where(x => x.To == characterUid);
             var healsObservable = eventBus.Subscriber<HealCharacter>().Where(x => x.To == characterUid);
             var healthCondition = GivenTheHealthConditionOf(characterUid, currentHealth: healthPoints);
-            return new Character(characterUid, damagesObservable, healsObservable, healthCondition);
+            return new Character(characterUid, damagesObservable, healsObservable, healthCondition, level);
         }
 
         private CharacterHealthCondition GivenTheHealthConditionOf(string characterId, int? currentHealth) {
@@ -99,6 +100,12 @@ namespace RpgCombatKata.Tests {
             return new TriedToHeal(source, target, heal);
         }
 
+        public TriedTo<Heal> ATriedToHealEvent(string source, string target, int heal)
+        {
+            return new TriedTo<Heal>(new Heal(source, target, heal));
+        }
+
+
         public GameMap AGameMap() {
             return Substitute.For<GameMap>();
         }
@@ -119,20 +126,39 @@ namespace RpgCombatKata.Tests {
             return new FactionsService();
         }
 
-        public SuccessTo<Attack> ASuccessAttack(string to, int damage) {
-            return new SuccessTo<Attack>(new Attack(to, damage));
+        public SuccessTo<Attack> ASuccessAttack(string from, string to, int damage) {
+            return new SuccessTo<Attack>(new Attack(from, to, damage));
         }
 
+        public SuccessTo<Attack> ASuccessAttack(string to, int damage) {
+            return ASuccessAttack("", to, damage);
+        }
         public SuccessTo<Heal> ASuccessHeal(string to, int healingPoints) {
-            return new SuccessTo<Heal>(new Heal(to, healingPoints));
+            return new SuccessTo<Heal>(new Heal("", to, healingPoints));
         }
 
         public RulesEngine ARulesEngine(GameRules rules) {
-            return new RulesEngine(eventBus, new List<GameRules>() {rules});
+            return ARulesEngine(new List<GameRules>() {rules});
+        }
+
+        public RulesEngine ARulesEngine(List<GameRules> rules)
+        {
+            return new RulesEngine(eventBus, rules);
         }
 
         public CombatRules ACombatRules() {
             return new CombatRules();
+        }
+
+        public HealingRules AHealingRules() {
+            return new HealingRules();
+        }
+
+        public LevelBasedCombatRules ALevelBasedCombatRules(List<Character> charactersStubData) {
+            var charactersRepository = Substitute.For<CharactersRepository>();
+            charactersRepository.GetCharacter(Arg.Any<string>())
+                .Returns(x => charactersStubData.First(y => y.Id == x.ArgAt<string>(0)));
+            return new LevelBasedCombatRules(charactersRepository);
         }
     }
 }

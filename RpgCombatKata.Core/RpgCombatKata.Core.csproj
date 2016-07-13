@@ -67,6 +67,8 @@
     <Compile Include="Model\Character.cs" />
     <Compile Include="Model\Actions\DamageCharacter.cs" />
     <Compile Include="Model\CharacterHealthCondition.cs" />
+    <Compile Include="Model\CharactersRepository.cs" />
+    <Compile Include="Model\HealingRules.cs" />
     <Compile Include="Model\CombatRules.cs" />
     <Compile Include="Model\Distance.cs" />
     <Compile Include="Model\Events\GameEvent.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Model\GameMessage.cs" />
     <Compile Include="Model\Heal.cs" />
     <Compile Include="Model\HealthCondition.cs" />
+    <Compile Include="Model\LevelBasedCombatRules.cs" />
     <Compile Include="Model\LivingBeing.cs" />
     <Compile Include="Model\MeleeAttack.cs" />
     <Compile Include="Model\RangedAttack.cs" />

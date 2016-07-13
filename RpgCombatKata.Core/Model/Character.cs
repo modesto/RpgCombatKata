@@ -23,11 +23,12 @@ namespace RpgCombatKata.Core.Model {
             VerifyHealthStatus();
         }
 
-        public Character(string uid, IObservable<DamageCharacter> damagesObservable, IObservable<HealCharacter> healsObservable, HealthCondition healthCondition)
+        public Character(string uid, IObservable<DamageCharacter> damagesObservable, IObservable<HealCharacter> healsObservable, HealthCondition healthCondition, int level = 1)
         {
             this.healsObservable = healsObservable;
             HealthCondition = healthCondition;
             Id = uid;
+            Level = level;
             SubscribeToDamage(damagesObservable);
             VerifyHealthStatus();
         }

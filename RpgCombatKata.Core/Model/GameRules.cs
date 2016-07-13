@@ -2,7 +2,7 @@
 
 namespace RpgCombatKata.Core.Model {
     public interface GameRules {
-        Func<T,T> GetFilterFor<T>();
-        bool CanApplyTo<T>();
+        Func<T,T> GetFilterFor<T>() where T : class;
+        bool CanApplyTo<T>() where T : class;
     }
 }
