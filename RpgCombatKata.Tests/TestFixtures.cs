@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using FluentAssertions;
 using NSubstitute;
 using RpgCombatKata.Core;
 using RpgCombatKata.Core.Model;
@@ -51,16 +50,8 @@ namespace RpgCombatKata.Tests {
             return new JoinFaction(characterId, factionName);
         }
 
-        public DamageCharacter ADamageCharacterAction(string to, int damage) {
-            return new DamageCharacter(to, damage);
-        }
-
         public void Executed<T>(T action) where T: GameAction {
             eventBus.Publish(action);
-        }
-
-        public HealCharacter AHealCharacterAction(string to, int heal) {
-            return new HealCharacter(to, heal);
         }
 
         public Character ADeadCharacter() {
@@ -93,17 +84,6 @@ namespace RpgCombatKata.Tests {
             eventBus.Dispose();
         }
 
-        public TriedToAttack ATriedToAttackEvent(Character attacker, Character defender, int damage, AttackRange kind = null) {
-            if (kind == null) {
-                kind = new MeleeAttack();
-            }
-            return new TriedToAttack(attacker, defender, damage, kind);
-        }
-
-        public TriedToHeal ATriedToHealEvent(Character source, Character target, int heal) {
-            return new TriedToHeal(source, target, heal);
-        }
-
         public TriedTo<Heal> ATriedToHealEvent(string source, string target, int heal)
         {
             return new TriedTo<Heal>(new Heal(source, target, heal));
@@ -112,10 +92,6 @@ namespace RpgCombatKata.Tests {
 
         public GameMap AGameMap() {
             return Substitute.For<GameMap>();
-        }
-
-        public JoinFaction AJoinFactionAction() {
-            throw new NotImplementedException();
         }
 
         public Faction AFaction(string factionName) {
