@@ -85,6 +85,7 @@
     <Compile Include="Model\HealthCondition.cs" />
     <Compile Include="Model\LevelBasedCombatRules.cs" />
     <Compile Include="Model\LivingBeing.cs" />
+    <Compile Include="Model\MapBasedCombatRules.cs" />
     <Compile Include="Model\MeleeAttack.cs" />
     <Compile Include="Model\RangedAttack.cs" />
     <Compile Include="Model\GameRules.cs" />

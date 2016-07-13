@@ -100,46 +100,49 @@ namespace RpgCombatKata.Tests
         [Test]
         public void melee_attack_must_be_in_range()
         {
-            var gameEngine = Given.AGameEngine();
+            var attacker = Given.ALiveCharacter();
+            var defender = Given.ALiveCharacter();
             var gameMap = Given.AGameMap();
-            var attacker = Given.ACharacter();
-            var defender = Given.ACharacter();
             gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(Distance.FromMeters(2));
-            var initialHealth = defender.Health;
+            var mapRules = Given.AMapBasedCombatRules(gameMap);
+            var rulesEngine = Given.ARulesEngine(mapRules);
+            var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
-            var tryToAttack = Given.ATriedToAttackEvent(attacker: attacker, defender: defender, damage: damage);
-            When.Raised(tryToAttack);
-            defender.Health.Should().Be(initialHealth - damage);
+            var attack = Given.ATriedToAttackEvent(attacker.Id, defender.Id, damage: damage);
+            When.Raised(attack);
+            defender.HealthCondition.CurrentHealth.Should().Be(initialHealth - damage);
         }
 
         [Test]
         public void melee_attack_must_fail_if_is_not_in_range()
         {
+            var attacker = Given.ALiveCharacter();
+            var defender = Given.ALiveCharacter();
             var gameMap = Given.AGameMap();
-            var gameEngine = Given.AGameEngine(gameMap);
-            var attacker = Given.ACharacter();
-            var defender = Given.ACharacter();
             gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(Distance.FromMeters(3));
-            var initialHealth = defender.Health;
+            var mapRules = Given.AMapBasedCombatRules(gameMap);
+            var rulesEngine = Given.ARulesEngine(mapRules);
+            var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
-            var tryToAttack = Given.ATriedToAttackEvent(attacker: attacker, defender: defender, damage: damage);
-            When.Raised(tryToAttack);
-            defender.Health.Should().Be(initialHealth);
+            var attack = Given.ATriedToAttackEvent(attacker.Id, defender.Id, damage: damage, kind: AttackRanges.Melee());
+            When.Raised(attack);
+            defender.HealthCondition.CurrentHealth.Should().Be(initialHealth);
         }
 
         [Test]
         public void range_attack_must_be_in_range()
         {
+            var attacker = Given.ALiveCharacter();
+            var defender = Given.ALiveCharacter();
             var gameMap = Given.AGameMap();
-            var gameEngine = Given.AGameEngine(gameMap);
-            var attacker = Given.ACharacter();
-            var defender = Given.ACharacter();
             gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(Distance.FromMeters(20));
-            var initialHealth = defender.Health;
+            var mapRules = Given.AMapBasedCombatRules(gameMap);
+            var rulesEngine = Given.ARulesEngine(mapRules);
+            var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
-            var tryToAttack = Given.ATriedToAttackEvent(attacker: attacker, defender: defender, damage: damage, kind: AttackRanges.Range());
-            When.Raised(tryToAttack);
-            defender.Health.Should().Be(initialHealth - damage);
+            var attack = Given.ATriedToAttackEvent(attacker.Id, defender.Id, damage: damage, kind: AttackRanges.Range());
+            When.Raised(attack);
+            defender.HealthCondition.CurrentHealth.Should().Be(initialHealth- damage);
         }
 
 

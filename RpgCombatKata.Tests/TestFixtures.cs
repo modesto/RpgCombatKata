@@ -20,9 +20,13 @@ namespace RpgCombatKata.Tests {
             return new Character(characterUid, damagesObservable, healsObservable, healthPoints, level);
         }
 
-        public TriedTo<Attack> ATriedToAttackEvent(string from, string to, int damage)
+        public TriedTo<Attack> ATriedToAttackEvent(string from, string to, int damage, AttackRange kind = null)
         {
-            return new TriedTo<Attack>(new Attack(from, to, damage));
+            if (kind == null)
+            {
+                kind = new MeleeAttack();
+            }
+            return new TriedTo<Attack>(new Attack(from, to, damage, kind));
         }
 
         public Character ALiveCharacter(int? healthPoints = default(int?), int level = 1)
@@ -127,7 +131,7 @@ namespace RpgCombatKata.Tests {
         }
 
         public SuccessTo<Attack> ASuccessAttack(string from, string to, int damage) {
-            return new SuccessTo<Attack>(new Attack(from, to, damage));
+            return new SuccessTo<Attack>(new Attack(@from, to, damage,AttackRanges.Melee()));
         }
 
         public SuccessTo<Attack> ASuccessAttack(string to, int damage) {
@@ -159,6 +163,10 @@ namespace RpgCombatKata.Tests {
             charactersRepository.GetCharacter(Arg.Any<string>())
                 .Returns(x => charactersStubData.First(y => y.Id == x.ArgAt<string>(0)));
             return new LevelBasedCombatRules(charactersRepository);
+        }
+
+        public MapBasedCombatRules AMapBasedCombatRules(GameMap gameMap) {
+            return new MapBasedCombatRules(gameMap);
         }
     }
 }
