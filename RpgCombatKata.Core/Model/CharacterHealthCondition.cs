@@ -8,7 +8,7 @@ namespace RpgCombatKata.Core.Model {
 
         public CharacterHealthCondition(string characterId, IObservable<SuccessTo<Attack>> attacksObservable, IObservable<SuccessTo<Heal>> healsObservable, int currentHealth = MaxHealth)
         {
-            this.CurrentHealth = currentHealth;
+            CurrentHealth = currentHealth;
             attacksObservable.Where(x => x.Event.To == characterId).Subscribe(x => ProcessAttack(x.Event));
             this.healsObservable = healsObservable.Where(x => x.Event.To == characterId);
             VerifyHealthStatus();

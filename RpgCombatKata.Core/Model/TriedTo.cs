@@ -3,7 +3,7 @@ namespace RpgCombatKata.Core.Model {
         public T Event { get; }
 
         public TriedTo(T gameEvent) {
-            this.Event = gameEvent;
+            Event = gameEvent;
         }
     }
 }

@@ -7,8 +7,8 @@
 
         public JoinFaction(string characterId, string factionName)
         {
-            this.CharacterId = characterId;
-            this.FactionName = factionName;
+            CharacterId = characterId;
+            FactionName = factionName;
         }
     }
 }

@@ -86,12 +86,12 @@ namespace RpgCombatKata.Core.Model {
 
         public bool Equals(Distance other)
         {
-            return this.meters == other.meters;
+            return meters == other.meters;
         }
 
         public int CompareTo(Distance other)
         {
-            return this.meters.CompareTo(other.meters);
+            return meters.CompareTo(other.meters);
         }
 
         public override int GetHashCode()

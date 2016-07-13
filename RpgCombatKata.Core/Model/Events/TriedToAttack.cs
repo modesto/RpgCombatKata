@@ -9,10 +9,10 @@
 
         public TriedToAttack(Character attacker, Character defender, int damage, AttackRange kind)
         {
-            this.Attacker = attacker;
-            this.Defender = defender;
-            this.Damage = damage;
-            this.AttackRange = kind;
+            Attacker = attacker;
+            Defender = defender;
+            Damage = damage;
+            AttackRange = kind;
         }
 
     }

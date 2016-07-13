@@ -13,7 +13,7 @@ namespace RpgCombatKata.Core.Model
 
         public Faction(string name, IObservable<JoinFaction> joinFactionObservable, IObservable<LeaveFaction> leaveFactionObservable)
         {
-            this.Name = name;
+            Name = name;
             joinFactionObservable.Where(faction => faction.FactionName == name).Subscribe(JoinFaction);
             leaveFactionObservable.Where(faction => faction.FactionName == name).Subscribe(LeaveFaction);
         }

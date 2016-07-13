@@ -7,9 +7,9 @@ namespace RpgCombatKata.Core.Model.Events {
 
         public TriedToHeal(Character source, Character target, int heal)
         {
-            this.Source = source;
-            this.Target = target;
-            this.Heal = heal;
+            Source = source;
+            Target = target;
+            Heal = heal;
         }
     }
 }
