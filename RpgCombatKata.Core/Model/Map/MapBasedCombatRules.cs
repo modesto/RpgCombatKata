@@ -1,8 +1,8 @@
 using System;
 using RpgCombatKata.Core.Model.Commands;
 
-namespace RpgCombatKata.Core.Model.Rules {
-    public class MapBasedCombatRules : GameRules {
+namespace RpgCombatKata.Core.Model.Map {
+    public class MapBasedCombatRules : Rules.Rules {
         private readonly GameMap gameMap;
 
         public MapBasedCombatRules(GameMap gameMap) {

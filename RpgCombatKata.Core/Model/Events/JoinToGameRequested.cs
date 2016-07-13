@@ -1,3 +1,5 @@
+using RpgCombatKata.Core.Model.Characters;
+
 namespace RpgCombatKata.Core.Model.Events {
     public class JoinToGameRequested : GameEvent {
         public Character Character { get; }

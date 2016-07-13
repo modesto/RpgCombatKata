@@ -1,8 +1,9 @@
 using System;
 using System.Reactive.Linq;
+using RpgCombatKata.Core.Model.Behaviours;
 using RpgCombatKata.Core.Model.Commands;
 
-namespace RpgCombatKata.Core.Model {
+namespace RpgCombatKata.Core.Model.Characters {
     public class CharacterHealthCondition : HealthCondition {
         private IDisposable healsSubscriber;
         private readonly IObservable<SuccessTo<Heal>> healsObservable;

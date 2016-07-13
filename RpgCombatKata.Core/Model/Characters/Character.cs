@@ -1,7 +1,6 @@
-using System;
-using RpgCombatKata.Core.Model.Actions;
+using RpgCombatKata.Core.Model.Behaviours;
 
-namespace RpgCombatKata.Core.Model {
+namespace RpgCombatKata.Core.Model.Characters {
     public class Character : LivingBeing {
         public Character(string uid, HealthCondition healthCondition, int level = 1)
         {

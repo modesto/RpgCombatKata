@@ -1,6 +1,4 @@
-using RpgCombatKata.Core.Model.Commands;
-
-namespace RpgCombatKata.Core.Model {
+namespace RpgCombatKata.Core.Model.Commands {
     public class Heal : GameMessage {
         public string From { get; }
         public string To { get; }

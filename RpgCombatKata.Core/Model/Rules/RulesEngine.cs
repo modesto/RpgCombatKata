@@ -8,9 +8,9 @@ namespace RpgCombatKata.Core.Model.Rules
     public class RulesEngine
     {
         private readonly EventBus eventBus;
-        private readonly List<GameRules> gameRules;
+        private readonly List<Rules> gameRules;
 
-        public RulesEngine(EventBus eventBus, List<GameRules> gameRules) {
+        public RulesEngine(EventBus eventBus, List<Rules> gameRules) {
             this.eventBus = eventBus;
             this.gameRules = gameRules;
             RegisterFiltersForTriedTo<Attack>();

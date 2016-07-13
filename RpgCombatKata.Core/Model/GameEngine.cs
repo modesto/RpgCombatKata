@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using RpgCombatKata.Core.Model.Characters;
 using RpgCombatKata.Core.Model.Events;
+using RpgCombatKata.Core.Model.Map;
 
 namespace RpgCombatKata.Core.Model {
     public class GameEngine {

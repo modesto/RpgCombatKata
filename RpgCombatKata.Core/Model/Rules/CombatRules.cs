@@ -3,7 +3,7 @@ using RpgCombatKata.Core.Model.Commands;
 
 namespace RpgCombatKata.Core.Model.Rules
 {
-    public class CombatRules : GameRules
+    public class CombatRules : Rules
     {
         public Func<T, T> GetFilterFor<T>() where T : class {
             return ApplyFilter<T>;

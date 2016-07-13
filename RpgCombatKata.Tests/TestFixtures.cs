@@ -6,8 +6,10 @@ using NSubstitute;
 using RpgCombatKata.Core;
 using RpgCombatKata.Core.Model;
 using RpgCombatKata.Core.Model.Actions;
+using RpgCombatKata.Core.Model.Characters;
 using RpgCombatKata.Core.Model.Commands;
 using RpgCombatKata.Core.Model.Events;
+using RpgCombatKata.Core.Model.Map;
 using RpgCombatKata.Core.Model.Rules;
 
 namespace RpgCombatKata.Tests {
@@ -110,11 +112,11 @@ namespace RpgCombatKata.Tests {
             return new SuccessTo<Heal>(new Heal("", to, healingPoints));
         }
 
-        public RulesEngine ARulesEngine(GameRules rules) {
-            return ARulesEngine(new List<GameRules>() {rules});
+        public RulesEngine ARulesEngine(Rules rules) {
+            return ARulesEngine(new List<Rules>() {rules});
         }
 
-        public RulesEngine ARulesEngine(List<GameRules> rules)
+        public RulesEngine ARulesEngine(List<Rules> rules)
         {
             return new RulesEngine(eventBus, rules);
         }
