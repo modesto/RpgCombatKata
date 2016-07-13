@@ -67,6 +67,7 @@
     <Compile Include="Model\Character.cs" />
     <Compile Include="Model\Actions\DamageCharacter.cs" />
     <Compile Include="Model\CharacterHealthCondition.cs" />
+    <Compile Include="Model\CombatRules.cs" />
     <Compile Include="Model\Distance.cs" />
     <Compile Include="Model\Events\GameEvent.cs" />
     <Compile Include="Model\Events\JoinToGameRequested.cs" />
@@ -83,6 +84,9 @@
     <Compile Include="Model\LivingBeing.cs" />
     <Compile Include="Model\MeleeAttack.cs" />
     <Compile Include="Model\RangedAttack.cs" />
+    <Compile Include="Model\GameRules.cs" />
+    <Compile Include="Model\RulesEngine.cs" />
+    <Compile Include="Model\TriedTo.cs" />
     <Compile Include="Model\SuccessTo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

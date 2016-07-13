@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reactive.Linq;
 using FluentAssertions;
 using NSubstitute;
@@ -16,6 +17,11 @@ namespace RpgCombatKata.Tests {
             var damagesObservable = eventBus.Subscriber<DamageCharacter>().Where(x => x.To == characterUid);
             var healsObservable = eventBus.Subscriber<HealCharacter>().Where(x => x.To == characterUid);
             return new Character(characterUid, damagesObservable, healsObservable, healthPoints, level);
+        }
+
+        public TriedTo<Attack> ATriedToAttackEvent(string from, string to, int damage)
+        {
+            return new TriedTo<Attack>(new Attack(to, damage));
         }
 
         public Character ALiveCharacter(int? healthPoints = default(int?), int level = 1)
@@ -119,6 +125,14 @@ namespace RpgCombatKata.Tests {
 
         public SuccessTo<Heal> ASuccessHeal(string to, int healingPoints) {
             return new SuccessTo<Heal>(new Heal(to, healingPoints));
+        }
+
+        public RulesEngine ARulesEngine(GameRules rules) {
+            return new RulesEngine(eventBus, new List<GameRules>() {rules});
+        }
+
+        public CombatRules ACombatRules() {
+            return new CombatRules();
         }
     }
 }

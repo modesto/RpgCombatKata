@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
-using RpgCombatKata.Core.Model;
 using Given = RpgCombatKata.Tests.TestFixtures;
 using When = RpgCombatKata.Tests.TestFixtures;
 

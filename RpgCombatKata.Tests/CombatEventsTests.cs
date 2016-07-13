@@ -11,14 +11,15 @@ namespace RpgCombatKata.Tests
     {
         [Test]
         public void a_character_can_attack_another_character() {
-            var gameEngine = Given.AGameEngine();
-            var attacker = Given.ACharacter();
-            var defender = Given.ACharacter();
-            var initialHealth = defender.Health;
+            var combatRules = Given.ACombatRules();
+            var rulesEngine = Given.ARulesEngine(combatRules);
+            var attacker = Given.ALiveCharacter();
+            var defender = Given.ALiveCharacter();
+            var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
-            var tryToAttack = Given.ATriedToAttackEvent(attacker: attacker, defender: defender, damage: damage);
-            When.Raised(tryToAttack);
-            defender.Health.Should().Be(initialHealth-damage);
+            var attack = Given.ATriedToAttackEvent(attacker.Id, defender.Id, damage: damage);
+            When.Raised(attack);
+            defender.HealthCondition.CurrentHealth.Should().Be(initialHealth-damage);
         }
 
         [Test]
