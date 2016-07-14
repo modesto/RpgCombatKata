@@ -5,7 +5,7 @@ namespace RpgCombatKata.Core.Model.Combat
 {
     public class LevelBasedCombatRules : Rules.Rules
     {
-        private CharactersRepository charactersRepository;
+        private readonly CharactersRepository charactersRepository;
 
         public LevelBasedCombatRules(CharactersRepository charactersRepository)
         {
