@@ -21,12 +21,12 @@ namespace RpgCombatKata.Core.Business.Factions
         {
             if (typeof(T) == typeof(TriedTo<Heal>)) {
                 var heal = gameEvent as TriedTo<Heal>;
-                if (AreEnemies(heal.Event.From, heal.Event.To)) return default(T);
+                if (AreEnemies(heal?.Event.From, heal?.Event.To)) return default(T);
                 return (T)Convert.ChangeType(heal, typeof(T));
             }
             else if (typeof(T) == typeof(TriedTo<Attack>)) {
                 var attack = gameEvent as TriedTo<Attack>;
-                if (AreFriends(attack.Event.From, attack.Event.To)) return default(T);
+                if (AreFriends(attack?.Event.From, attack?.Event.To)) return default(T);
                 return (T)Convert.ChangeType(attack, typeof(T));
             }
             return gameEvent;
