@@ -16,8 +16,8 @@ namespace RpgCombatKata.Core.Business.Map {
         private T ApplyFilter<T>(T gameEvent) where T : class
         {
             TriedTo<Attack> attack = gameEvent as TriedTo<Attack>;
-            if (gameMap.DistanceBetween(attack.Event.From, attack.Event.To).TotalMeters <=
-                attack.Event.AttackRange.Range.TotalMeters) {
+            if (gameMap.DistanceBetween(attack?.Event.From, attack?.Event.To).TotalMeters <=
+                attack?.Event.AttackRange.Range.TotalMeters) {
                 return (T)Convert.ChangeType(attack, typeof(T));
                 
             }

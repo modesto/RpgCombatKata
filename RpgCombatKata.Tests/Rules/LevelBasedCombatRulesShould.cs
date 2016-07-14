@@ -17,7 +17,7 @@ namespace RpgCombatKata.Tests.Rules
             var combatRules = Given.ACombatRules();
             var levelBasedCombatRules = Given.ALevelBasedCombatRules(charactersStubData);
             var rules = new List<Core.Business.Rules.Rules>() {combatRules, levelBasedCombatRules};
-            var rulesPipeline = Given.ARulesPipeline(rules);
+            Given.ARulesPipeline(rules);
             var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
             var expectedDamage = (int)(damage * 1.5);
@@ -34,7 +34,7 @@ namespace RpgCombatKata.Tests.Rules
             var combatRules = Given.ACombatRules();
             var levelBasedCombatRules = Given.ALevelBasedCombatRules(charactersStubData);
             var rules = new List<Core.Business.Rules.Rules>() { combatRules, levelBasedCombatRules };
-            var rulesPipeline = Given.ARulesPipeline(rules);
+            Given.ARulesPipeline(rules);
             var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
             var expectedDamage = (int)(damage - (damage * 0.5));

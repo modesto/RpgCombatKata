@@ -1,4 +1,3 @@
-using RpgCombatKata.Core;
 using RpgCombatKata.Core.Business;
 using RpgCombatKata.Core.Business.Combat;
 using RpgCombatKata.Core.Business.Factions;

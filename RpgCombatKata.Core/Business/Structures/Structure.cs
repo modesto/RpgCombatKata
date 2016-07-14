@@ -6,8 +6,8 @@ namespace RpgCombatKata.Core.Business.Structures {
 
         public Structure(string structureId, DurabilityCondition durabilityCondition)
         {
-            this.Id = structureId;
-            this.DurabilityCondition = durabilityCondition;
+            Id = structureId;
+            DurabilityCondition = durabilityCondition;
         }
     }
 }
