@@ -14,7 +14,7 @@ namespace RpgCombatKata.Tests.Rules
             var anAlly = Given.ALiveCharacter(healthPoints: 900);
             var faction = Given.AFaction();
             var factionRules = Given.AFactionCombatRules(faction);
-            var rulesEngine = Given.ARulesEngine(factionRules);
+            var rulesPipeline = Given.ARulesPipeline(factionRules);
             When.TriedToJoinFaction(character.Id, faction.Id);
             When.TriedToJoinFaction(anAlly.Id, faction.Id);
             When.TriedToHeal(character.Id, anAlly.Id, 50);
@@ -25,7 +25,7 @@ namespace RpgCombatKata.Tests.Rules
         public void forbide_a_character_to_heal_an_enemy()
         {
             var factionCombatRules = Given.AFactionCombatRules();
-            var rulesEngine = Given.ARulesEngine(factionCombatRules);
+            var rulesPipeline = Given.ARulesPipeline(factionCombatRules);
             var healer = Given.ALiveCharacter();
             var enemy = Given.ALiveCharacter(healthPoints: 900);
             var initialHealth = enemy.HealthCondition.CurrentHealth;
@@ -39,7 +39,7 @@ namespace RpgCombatKata.Tests.Rules
         {
             var faction = Given.AFaction();
             var factionRules = Given.AFactionCombatRules(faction);
-            var rulesEngine = Given.ARulesEngine(factionRules);
+            var rulesPipeline = Given.ARulesPipeline(factionRules);
             var attacker = Given.ALiveCharacter();
             var defender = Given.ALiveCharacter();
             var initialHealth = defender.HealthCondition.CurrentHealth;

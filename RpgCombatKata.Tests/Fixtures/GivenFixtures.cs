@@ -58,18 +58,18 @@ namespace RpgCombatKata.Tests.Fixtures {
             return new Faction(factionId, eventBus.Subscriber<SuccessTo<JoinFaction>>(), eventBus.Subscriber<SuccessTo<LeaveFaction>>());
         }
 
-        public RulesEngine ARulesEngine(Core.Business.Rules.Rules rules) {
-            return ARulesEngine(new List<Core.Business.Rules.Rules>() {rules});
+        public RulesPipeline ARulesPipeline(Core.Business.Rules.Rules rules) {
+            return ARulesPipeline(new List<Core.Business.Rules.Rules>() {rules});
         }
 
-        public RulesEngine ARulesEngine()
+        public RulesPipeline ARulesPipeline()
         {
-            return ARulesEngine(new List<Core.Business.Rules.Rules>());
+            return ARulesPipeline(new List<Core.Business.Rules.Rules>());
         }
         
-        public RulesEngine ARulesEngine(List<Core.Business.Rules.Rules> rules)
+        public RulesPipeline ARulesPipeline(List<Core.Business.Rules.Rules> rules)
         {
-            return new RulesEngine(eventBus, rules);
+            return new RulesPipeline(eventBus, rules);
         }
 
         public CombatRules ACombatRules() {

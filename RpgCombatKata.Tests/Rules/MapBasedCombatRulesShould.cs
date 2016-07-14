@@ -17,7 +17,7 @@ namespace RpgCombatKata.Tests.Rules
             var gameMap = Given.AGameMap();
             gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(Distance.FromMeters(2));
             var mapRules = Given.AMapBasedCombatRules(gameMap);
-            var rulesEngine = Given.ARulesEngine(mapRules);
+            var rulesPipeline = Given.ARulesPipeline(mapRules);
             var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
             When.TriedToAttack(attacker.Id, defender.Id, damage: damage);
@@ -32,7 +32,7 @@ namespace RpgCombatKata.Tests.Rules
             var gameMap = Given.AGameMap();
             gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(Distance.FromMeters(3));
             var mapRules = Given.AMapBasedCombatRules(gameMap);
-            var rulesEngine = Given.ARulesEngine(mapRules);
+            var rulesPipeline = Given.ARulesPipeline(mapRules);
             var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
             When.TriedToAttack(attacker.Id, defender.Id, damage: damage, kind: AttackRanges.Melee());
@@ -47,7 +47,7 @@ namespace RpgCombatKata.Tests.Rules
             var gameMap = Given.AGameMap();
             gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(Distance.FromMeters(20));
             var mapRules = Given.AMapBasedCombatRules(gameMap);
-            var rulesEngine = Given.ARulesEngine(mapRules);
+            var rulesPipeline = Given.ARulesPipeline(mapRules);
             var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
             When.TriedToAttack(attacker.Id, defender.Id, damage: damage, kind: AttackRanges.Range());
@@ -62,7 +62,7 @@ namespace RpgCombatKata.Tests.Rules
             var gameMap = Given.AGameMap();
             gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(Distance.FromMeters(21));
             var mapRules = Given.AMapBasedCombatRules(gameMap);
-            var rulesEngine = Given.ARulesEngine(mapRules);
+            var rulesPipeline = Given.ARulesPipeline(mapRules);
             var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
             When.TriedToAttack(attacker.Id, defender.Id, damage: damage, kind: AttackRanges.Range());

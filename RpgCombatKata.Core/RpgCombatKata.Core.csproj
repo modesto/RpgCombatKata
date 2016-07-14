@@ -83,7 +83,7 @@
     <Compile Include="Business\Combat\MeleeAttack.cs" />
     <Compile Include="Business\Combat\RangedAttack.cs" />
     <Compile Include="Business\Rules\Rules.cs" />
-    <Compile Include="Business\Rules\RulesEngine.cs" />
+    <Compile Include="Business\Rules\RulesPipeline.cs" />
     <Compile Include="Business\TriedTo.cs" />
     <Compile Include="Business\SuccessTo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

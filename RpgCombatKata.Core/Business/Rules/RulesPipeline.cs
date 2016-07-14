@@ -7,12 +7,12 @@ using RpgCombatKata.Core.Infrastructure;
 
 namespace RpgCombatKata.Core.Business.Rules
 {
-    public class RulesEngine
+    public class RulesPipeline
     {
         private readonly EventBus eventBus;
         private readonly List<Rules> gameRules;
 
-        public RulesEngine(EventBus eventBus, List<Rules> gameRules) {
+        public RulesPipeline(EventBus eventBus, List<Rules> gameRules) {
             this.eventBus = eventBus;
             this.gameRules = gameRules;
             RegisterFiltersForTriedTo<Attack>();
