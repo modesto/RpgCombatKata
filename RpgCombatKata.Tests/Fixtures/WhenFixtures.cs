@@ -1,4 +1,5 @@
 using RpgCombatKata.Core;
+using RpgCombatKata.Core.Infrastructure;
 using RpgCombatKata.Core.Model;
 using RpgCombatKata.Core.Model.Combat;
 using RpgCombatKata.Core.Model.Factions;

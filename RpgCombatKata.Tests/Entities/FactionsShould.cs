@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
 
-namespace RpgCombatKata.Tests.Rules
+namespace RpgCombatKata.Tests.Entities
 {
     [TestFixture]
     public class FactionsShould : TestBase

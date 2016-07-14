@@ -56,7 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventBus.cs" />
+    <Compile Include="Infrastructure\EventBus.cs" />
     <Compile Include="IDisposableExtensionMethods.cs" />
     <Compile Include="Model\GameAction.cs" />
     <Compile Include="Model\Factions\LeaveFaction.cs" />

@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using RpgCombatKata.Core;
+using RpgCombatKata.Core.Infrastructure;
 using RpgCombatKata.Tests.Fixtures;
 
 namespace RpgCombatKata.Tests {

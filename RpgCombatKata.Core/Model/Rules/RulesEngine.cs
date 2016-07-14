@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
+using RpgCombatKata.Core.Infrastructure;
 using RpgCombatKata.Core.Model.Combat;
 using RpgCombatKata.Core.Model.Factions;
 

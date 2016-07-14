@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NSubstitute;
 using RpgCombatKata.Core;
+using RpgCombatKata.Core.Infrastructure;
 using RpgCombatKata.Core.Model;
 using RpgCombatKata.Core.Model.Characters;
 using RpgCombatKata.Core.Model.Combat;
