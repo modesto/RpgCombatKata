@@ -110,7 +110,7 @@ namespace RpgCombatKata.Core.Business.Map {
 
         public override string ToString()
         {
-            return string.Format("{0}[m]", TotalMeters);
+            return $"{TotalMeters}[m]";
         }
     }
 }
