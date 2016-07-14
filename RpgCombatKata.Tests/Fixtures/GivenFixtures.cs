@@ -12,7 +12,7 @@ using RpgCombatKata.Core.Business.Structures;
 using RpgCombatKata.Core.Infrastructure;
 
 namespace RpgCombatKata.Tests.Fixtures {
-    public class GivenFixtures : IDisposable {
+    public class GivenFixtures {
         private readonly EventBus eventBus;
         public GivenFixtures(EventBus eventBus) {
             this.eventBus = eventBus;
@@ -41,13 +41,7 @@ namespace RpgCombatKata.Tests.Fixtures {
         public Character ADeadCharacter() {
             return ALiveCharacter(healthPoints: 0);
         }
-        
-        public void Dispose() {
-            eventBus.Dispose();
-        }
-
-
-
+ 
         public GameMap AGameMap() {
             return Substitute.For<GameMap>();
         }

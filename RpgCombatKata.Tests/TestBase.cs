@@ -7,11 +7,12 @@ namespace RpgCombatKata.Tests {
     public abstract class TestBase {
         protected GivenFixtures Given;
         protected WhenFixtures When;
+        private EventBus eventBus;
 
         [SetUp]
         public void SetUp()
         {
-            EventBus eventBus = new EventBus();
+            eventBus = new EventBus();
             Given = new GivenFixtures(eventBus);
             When = new WhenFixtures(eventBus);
         }
@@ -19,8 +20,7 @@ namespace RpgCombatKata.Tests {
         [TearDown]
         public void TearDown()
         {
-            When = null;
-            Given.Dispose();
+            eventBus.Dispose();
         }
     }
 }
