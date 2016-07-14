@@ -14,7 +14,6 @@ namespace RpgCombatKata.Core.Infrastructure
         }
 
         public virtual void Publish<T>(T msg) {
-            Console.WriteLine("Raised {0}", typeof(T).FullName);
             GetBus<T>().OnNext(msg);
         }
 
