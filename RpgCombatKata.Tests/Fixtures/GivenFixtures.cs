@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using NSubstitute;
 using RpgCombatKata.Core.Business;
 using RpgCombatKata.Core.Business.Characters;
@@ -29,6 +30,12 @@ namespace RpgCombatKata.Tests.Fixtures {
             var healsObservable = eventBus.Subscriber<SuccessTo<Heal>>();
             return currentHealth.HasValue ? new CharacterHealthCondition(characterId, attacksObservable, healsObservable, currentHealth.Value) 
                                           : new CharacterHealthCondition(characterId, attacksObservable, healsObservable);
+        }
+
+        private DurabilityCondition GivenTheDurabilityConditionOf(string structureId, int currentDurability)
+        {
+            var attacksObservable = eventBus.Subscriber<SuccessTo<Attack>>();
+            return new DurabilityCondition(structureId, attacksObservable, currentDurability);
         }
 
         public Character ADeadCharacter() {
@@ -91,6 +98,49 @@ namespace RpgCombatKata.Tests.Fixtures {
         {
             var factionsRepository = Substitute.For<FactionsRepository>();
             return new FactionCombatRules(factionsRepository);
+        }
+
+        public Structure AStructure(int durability) {
+            var structureId = Guid.NewGuid().ToString();
+            var durabilityCondition = GivenTheDurabilityConditionOf(structureId, currentDurability: durability);
+            return new Structure(structureId, durabilityCondition);
+        }
+    }
+
+    public class DurabilityCondition
+    {
+        private IObservable<SuccessTo<Attack>> attacksObservable;
+
+        public int CurrentDurability { get; private set; }
+
+        public DurabilityCondition(string structureId, IObservable<SuccessTo<Attack>> attacksObservable, int currentDurability)
+        {
+            this.attacksObservable = attacksObservable;
+            CurrentDurability = currentDurability;
+
+            attacksObservable.Where(x => x.Event.To == structureId).Subscribe(x => ProcessAttack(x.Event));
+            VerifyHealthStatus();
+        }
+        private void ProcessAttack(Attack attack)
+        {
+            CurrentDurability -= attack.Damage;
+            VerifyHealthStatus();
+        }
+
+        private void VerifyHealthStatus() {
+            if (CurrentDurability <= 0) CurrentDurability = 0;
+        }
+    }
+
+    public class Structure
+    {
+        public DurabilityCondition DurabilityCondition { get; }
+        public string Id { get; }
+
+        public Structure(string structureId, DurabilityCondition durabilityCondition)
+        {
+            this.Id = structureId;
+            this.DurabilityCondition = durabilityCondition;
         }
     }
 }
