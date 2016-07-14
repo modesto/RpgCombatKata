@@ -20,7 +20,7 @@ namespace RpgCombatKata.Tests
         }
 
         [Test]
-        public void receive_only_damage_which_is_target()
+        public void no_receive_damage_to_other_targets()
         {
             var aCharacter = Given.ALiveCharacter();
             var anotherCharacter = Given.ALiveCharacter();
