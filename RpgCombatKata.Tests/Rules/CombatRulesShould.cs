@@ -35,15 +35,6 @@ namespace RpgCombatKata.Tests.Rules
             attacker.HealthCondition.CurrentHealth.Should().Be(initialHealth);
         }
 
-        [Test]
-        public void allow_a_character_to_heal_himself() {
-            var rulesEngine = Given.ARulesEngine();
-            var healer = Given.ALiveCharacter(healthPoints: 900);
-            var initialHealth = healer.HealthCondition.CurrentHealth;
-            var pointsToHeal = 50;
-            When.TriedToHeal(healer.Id, healer.Id, heal: pointsToHeal);
-            healer.HealthCondition.CurrentHealth.Should().Be(initialHealth + pointsToHeal);
-        }
 
         [Test]
         public void attacks_do_more_damage_to_low_level_characters() {
