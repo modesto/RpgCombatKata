@@ -22,6 +22,19 @@ namespace RpgCombatKata.Tests.Rules
         }
 
         [Test]
+        public void forbide_a_character_to_heal_an_enemy()
+        {
+            var factionCombatRules = Given.AFactionCombatRules();
+            var rulesEngine = Given.ARulesEngine(factionCombatRules);
+            var healer = Given.ALiveCharacter();
+            var enemy = Given.ALiveCharacter(healthPoints: 900);
+            var initialHealth = enemy.HealthCondition.CurrentHealth;
+            var pointsToHeal = 50;
+            When.TriedToHeal(healer.Id, enemy.Id, heal: pointsToHeal);
+            enemy.HealthCondition.CurrentHealth.Should().Be(initialHealth);
+        }
+
+        [Test]
         public void forbide_a_character_attack_an_ally()
         {
             var faction = Given.AFaction();
