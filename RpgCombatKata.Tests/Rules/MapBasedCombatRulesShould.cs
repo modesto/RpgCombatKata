@@ -2,6 +2,7 @@
 using NSubstitute;
 using NUnit.Framework;
 using RpgCombatKata.Core.Business.Map;
+using RpgCombatKata.Tests.Fixtures;
 
 namespace RpgCombatKata.Tests.Rules
 {

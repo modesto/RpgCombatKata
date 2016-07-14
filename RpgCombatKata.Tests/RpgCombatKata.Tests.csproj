@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Entities\StructuresShould.cs" />
     <Compile Include="Entities\CharactersShould.cs" />
+    <Compile Include="Fixtures\AttackRanges.cs" />
     <Compile Include="Rules\MapBasedCombatRulesShould.cs" />
     <Compile Include="Rules\LevelBasedCombatRulesShould.cs" />
     <Compile Include="Rules\CombatRulesShould.cs" />

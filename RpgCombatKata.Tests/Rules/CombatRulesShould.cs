@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
-using RpgCombatKata.Core.Business.Combat;
 
 namespace RpgCombatKata.Tests.Rules
 {
@@ -29,16 +28,6 @@ namespace RpgCombatKata.Tests.Rules
             var damage = 100;
             When.TriedToAttack(attacker.Id, attacker.Id, damage: damage);
             attacker.HealthCondition.CurrentHealth.Should().Be(initialHealth);
-        }
-    }
-
-    public static class AttackRanges {
-        public static AttackRange Melee() {
-            return new MeleeAttack();
-        }
-
-        public static AttackRange Range() {
-            return new RangedAttack();
         }
     }
 }
