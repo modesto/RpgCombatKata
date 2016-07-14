@@ -4,16 +4,16 @@ using System.Reactive.Subjects;
 
 namespace RpgCombatKata.Core.Infrastructure
 {
-    public class EventBus : IDisposable
+    public sealed class EventBus : IDisposable
     {
         private readonly ConcurrentDictionary<Type, object> busDictionary = new ConcurrentDictionary<Type, object>();
 
-        public virtual IObservable<T> Observable<T>()
+        public IObservable<T> Observable<T>()
         {
             return GetBus<T>();
         }
 
-        public virtual void Publish<T>(T msg) {
+        public void Publish<T>(T msg) {
             GetBus<T>().OnNext(msg);
         }
 
@@ -24,8 +24,22 @@ namespace RpgCombatKata.Core.Infrastructure
         }
 
         public void Dispose() {
-            foreach (var bus in busDictionary.Values) {
-                (bus as IDisposable)?.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~EventBus() {
+            Dispose(false);
+        }
+
+
+        private void Dispose(bool disposing) {
+            if (disposing) {
+                foreach (var bus in busDictionary.Values)
+                {
+                    (bus as IDisposable)?.Dispose();
+                }
+                busDictionary.Clear();
             }
         }
     }
