@@ -77,6 +77,14 @@ namespace RpgCombatKata.Core.Business.Map {
             return new Distance(-a.meters);
         }
 
+        public static bool operator ==(Distance a, Distance b) {
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(Distance a, Distance b) {
+            return !a.Equals(b);
+        }
+
         public override bool Equals(object obj)
         {
             if (!(obj is Distance))
@@ -85,9 +93,9 @@ namespace RpgCombatKata.Core.Business.Map {
             return Equals((Distance)obj);
         }
 
-        public bool Equals(Distance other)
-        {
-            return meters == other.meters;
+        public bool Equals(Distance other) {
+            const double tolerance = 0.0001;
+            return Math.Abs(meters - other.meters) < tolerance;
         }
 
         public int CompareTo(Distance other)
