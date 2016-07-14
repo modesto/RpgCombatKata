@@ -29,8 +29,6 @@ namespace RpgCombatKata.Core.Business.Combat
             else if (attacker.Level <= defender.Level - 5) {
                 attack?.Event.UpdateDamage((int) (attack.Event.Damage - (attack.Event.Damage * 0.5)));
             }
-
-
             return (T)Convert.ChangeType(attack, typeof(T));
         }
 
