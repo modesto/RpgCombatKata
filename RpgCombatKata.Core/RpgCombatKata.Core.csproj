@@ -59,7 +59,6 @@
     <Compile Include="Business\Structures\DurabilityCondition.cs" />
     <Compile Include="Business\Structures\Structure.cs" />
     <Compile Include="Infrastructure\EventBus.cs" />
-    <Compile Include="IDisposableExtensionMethods.cs" />
     <Compile Include="Business\Factions\LeaveFaction.cs" />
     <Compile Include="Business\Factions\JoinFaction.cs" />
     <Compile Include="Business\Combat\Attack.cs" />

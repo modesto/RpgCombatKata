@@ -34,11 +34,11 @@ namespace RpgCombatKata.Core.Business.Characters {
             if (CurrentHealth <= 0)
             {
                 CurrentHealth = 0;
-                healsSubscriber.TryToDispose();
+                healsSubscriber?.Dispose();
             }
             else if (CurrentHealth == MaxHealth)
             {
-                healsSubscriber.TryToDispose();
+                healsSubscriber?.Dispose();
             }
             else if (healsSubscriber == null)
             {
