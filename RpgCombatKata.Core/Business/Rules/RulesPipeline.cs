@@ -22,7 +22,7 @@ namespace RpgCombatKata.Core.Business.Rules
         }
 
         private void RegisterFiltersForTriedTo<T>() where T : GameMessage {
-            var observer = eventBus.Subscriber<TriedTo<T>>();
+            var observer = eventBus.Observable<TriedTo<T>>();
             foreach(var rules in gameRules) {
                 if (!rules.CanApplyTo<TriedTo<T>>()) continue;
                 var filter = rules.GetFilterFor<TriedTo<T>>();

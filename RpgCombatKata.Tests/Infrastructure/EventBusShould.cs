@@ -23,7 +23,7 @@ namespace RpgCombatKata.Tests.Infrastructure
         [Test]
         public void allow_to_subscribe_by_type() {
             var value = 0;
-            using (eventBus.Subscriber<int>().Subscribe(x => value = x)) {
+            using (eventBus.Observable<int>().Subscribe(x => value = x)) {
                 eventBus.Publish(1);
                 value.Should().Be(1);
             }
@@ -33,7 +33,7 @@ namespace RpgCombatKata.Tests.Infrastructure
         public void dispose_subscriber()
         {
             var value = 0;
-            eventBus.Subscriber<int>().Subscribe(x => value = x).Dispose();
+            eventBus.Observable<int>().Subscribe(x => value = x).Dispose();
             eventBus.Publish(1);
             value.Should().Be(0);
         }

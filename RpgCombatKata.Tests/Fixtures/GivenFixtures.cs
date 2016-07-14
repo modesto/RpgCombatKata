@@ -26,15 +26,15 @@ namespace RpgCombatKata.Tests.Fixtures {
         }
 
         private CharacterHealthCondition GivenTheHealthConditionOf(string characterId, int? currentHealth) {
-            var attacksObservable = eventBus.Subscriber<SuccessTo<Attack>>();
-            var healsObservable = eventBus.Subscriber<SuccessTo<Heal>>();
+            var attacksObservable = eventBus.Observable<SuccessTo<Attack>>();
+            var healsObservable = eventBus.Observable<SuccessTo<Heal>>();
             return currentHealth.HasValue ? new CharacterHealthCondition(characterId, attacksObservable, healsObservable, currentHealth.Value) 
                                           : new CharacterHealthCondition(characterId, attacksObservable, healsObservable);
         }
 
         private DurabilityCondition GivenTheDurabilityConditionOf(string structureId, int currentDurability)
         {
-            var attacksObservable = eventBus.Subscriber<SuccessTo<Attack>>();
+            var attacksObservable = eventBus.Observable<SuccessTo<Attack>>();
             return new DurabilityCondition(structureId, attacksObservable, currentDurability);
         }
 
@@ -52,14 +52,13 @@ namespace RpgCombatKata.Tests.Fixtures {
             return Substitute.For<GameMap>();
         }
 
-
         public Faction AFaction() {
             var factionId = Guid.NewGuid().ToString();
-            return new Faction(factionId, eventBus.Subscriber<SuccessTo<JoinFaction>>(), eventBus.Subscriber<SuccessTo<LeaveFaction>>());
+            return new Faction(factionId, eventBus.Observable<SuccessTo<JoinFaction>>(), eventBus.Observable<SuccessTo<LeaveFaction>>());
         }
 
         public RulesPipeline ARulesPipeline(Core.Business.Rules.Rules rules) {
-            return ARulesPipeline(new List<Core.Business.Rules.Rules>() {rules});
+            return ARulesPipeline(new List<Core.Business.Rules.Rules> {rules});
         }
 
         public RulesPipeline ARulesPipeline()
@@ -91,7 +90,7 @@ namespace RpgCombatKata.Tests.Fixtures {
         {
             var factionsRepository = Substitute.For<FactionsRepository>();
             factionsRepository.GetFaction(Arg.Is(aFaction.Id)).Returns(aFaction);
-            factionsRepository.GetFactions().Returns(new List<Faction>() { aFaction });
+            factionsRepository.GetFactions().Returns(new List<Faction> { aFaction });
             return new FactionCombatRules(factionsRepository);
         }
         public FactionCombatRules AFactionCombatRules()

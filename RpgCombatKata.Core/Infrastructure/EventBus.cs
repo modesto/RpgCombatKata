@@ -8,7 +8,7 @@ namespace RpgCombatKata.Core.Infrastructure
     {
         private readonly ConcurrentDictionary<Type, object> busDictionary = new ConcurrentDictionary<Type, object>();
 
-        public virtual IObservable<T> Subscriber<T>()
+        public virtual IObservable<T> Observable<T>()
         {
             return GetBus<T>();
         }
