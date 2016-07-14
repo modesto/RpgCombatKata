@@ -5,9 +5,8 @@ using NUnit.Framework;
 using RpgCombatKata.Core.Model.Characters;
 using RpgCombatKata.Core.Model.Combat;
 using RpgCombatKata.Core.Model.Map;
-using RpgCombatKata.Core.Model.Rules;
 
-namespace RpgCombatKata.Tests
+namespace RpgCombatKata.Tests.Rules
 {
     [TestFixture]
     public class CombatRulesShould : TestBase
@@ -53,7 +52,7 @@ namespace RpgCombatKata.Tests
             List<Character> charactersStubData = new List<Character>() {attacker, defender};
             var combatRules = Given.ACombatRules();
             var levelBasedCombatRules = Given.ALevelBasedCombatRules(charactersStubData);
-            var rules = new List<Rules>() {combatRules, levelBasedCombatRules};
+            var rules = new List<Core.Model.Rules.Rules>() {combatRules, levelBasedCombatRules};
             var rulesEngine = Given.ARulesEngine(rules);
             var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
@@ -70,7 +69,7 @@ namespace RpgCombatKata.Tests
             List<Character> charactersStubData = new List<Character>() { attacker, defender };
             var combatRules = Given.ACombatRules();
             var levelBasedCombatRules = Given.ALevelBasedCombatRules(charactersStubData);
-            var rules = new List<Rules>() { combatRules, levelBasedCombatRules };
+            var rules = new List<Core.Model.Rules.Rules>() { combatRules, levelBasedCombatRules };
             var rulesEngine = Given.ARulesEngine(rules);
             var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;

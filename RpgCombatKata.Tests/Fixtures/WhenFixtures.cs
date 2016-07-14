@@ -2,8 +2,9 @@ using RpgCombatKata.Core;
 using RpgCombatKata.Core.Model;
 using RpgCombatKata.Core.Model.Combat;
 using RpgCombatKata.Core.Model.Factions;
+using RpgCombatKata.Tests.Rules;
 
-namespace RpgCombatKata.Tests {
+namespace RpgCombatKata.Tests.Fixtures {
     public class WhenFixtures {
         private readonly EventBus eventBus;
 

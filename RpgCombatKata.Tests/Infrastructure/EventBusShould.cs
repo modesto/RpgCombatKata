@@ -3,7 +3,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using RpgCombatKata.Core;
 
-namespace RpgCombatKata.Tests
+namespace RpgCombatKata.Tests.Infrastructure
 {
     [TestFixture]
     public class EventBusShould {
