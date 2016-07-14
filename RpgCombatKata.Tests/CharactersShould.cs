@@ -36,7 +36,7 @@ namespace RpgCombatKata.Tests
         }
 
         [Test]
-        public void be_healed_only_if_is_target()
+        public void not_be_healed_if_is_not_the_target()
         {
             var aCharacter = Given.ALiveCharacter(healthPoints: 900);
             var anotherCharacter = Given.ALiveCharacter(healthPoints: 900);
