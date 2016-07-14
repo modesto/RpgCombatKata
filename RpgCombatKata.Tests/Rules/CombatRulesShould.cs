@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
-using RpgCombatKata.Core.Model.Characters;
-using RpgCombatKata.Core.Model.Combat;
+using RpgCombatKata.Core.Business.Combat;
 
 namespace RpgCombatKata.Tests.Rules
 {

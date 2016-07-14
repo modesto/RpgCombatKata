@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
-using RpgCombatKata.Core.Model.Map;
+using RpgCombatKata.Core.Business.Map;
 
 namespace RpgCombatKata.Tests.Rules
 {

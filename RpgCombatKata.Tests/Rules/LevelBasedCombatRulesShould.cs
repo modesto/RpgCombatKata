@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
-using RpgCombatKata.Core.Model.Characters;
+using RpgCombatKata.Core.Business.Characters;
 
 
 namespace RpgCombatKata.Tests.Rules
@@ -16,7 +16,7 @@ namespace RpgCombatKata.Tests.Rules
             List<Character> charactersStubData = new List<Character>() {attacker, defender};
             var combatRules = Given.ACombatRules();
             var levelBasedCombatRules = Given.ALevelBasedCombatRules(charactersStubData);
-            var rules = new List<Core.Model.Rules.Rules>() {combatRules, levelBasedCombatRules};
+            var rules = new List<Core.Business.Rules.Rules>() {combatRules, levelBasedCombatRules};
             var rulesEngine = Given.ARulesEngine(rules);
             var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
@@ -33,7 +33,7 @@ namespace RpgCombatKata.Tests.Rules
             List<Character> charactersStubData = new List<Character>() { attacker, defender };
             var combatRules = Given.ACombatRules();
             var levelBasedCombatRules = Given.ALevelBasedCombatRules(charactersStubData);
-            var rules = new List<Core.Model.Rules.Rules>() { combatRules, levelBasedCombatRules };
+            var rules = new List<Core.Business.Rules.Rules>() { combatRules, levelBasedCombatRules };
             var rulesEngine = Given.ARulesEngine(rules);
             var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;

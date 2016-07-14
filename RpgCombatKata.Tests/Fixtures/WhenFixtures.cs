@@ -1,8 +1,8 @@
 using RpgCombatKata.Core;
+using RpgCombatKata.Core.Business;
+using RpgCombatKata.Core.Business.Combat;
+using RpgCombatKata.Core.Business.Factions;
 using RpgCombatKata.Core.Infrastructure;
-using RpgCombatKata.Core.Model;
-using RpgCombatKata.Core.Model.Combat;
-using RpgCombatKata.Core.Model.Factions;
 using RpgCombatKata.Tests.Rules;
 
 namespace RpgCombatKata.Tests.Fixtures {

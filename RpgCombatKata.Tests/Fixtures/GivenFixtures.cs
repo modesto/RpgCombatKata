@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using NSubstitute;
 using RpgCombatKata.Core;
+using RpgCombatKata.Core.Business;
+using RpgCombatKata.Core.Business.Characters;
+using RpgCombatKata.Core.Business.Combat;
+using RpgCombatKata.Core.Business.Events;
+using RpgCombatKata.Core.Business.Factions;
+using RpgCombatKata.Core.Business.Map;
+using RpgCombatKata.Core.Business.Rules;
 using RpgCombatKata.Core.Infrastructure;
-using RpgCombatKata.Core.Model;
-using RpgCombatKata.Core.Model.Characters;
-using RpgCombatKata.Core.Model.Combat;
-using RpgCombatKata.Core.Model.Events;
-using RpgCombatKata.Core.Model.Factions;
-using RpgCombatKata.Core.Model.Map;
-using RpgCombatKata.Core.Model.Rules;
 
 namespace RpgCombatKata.Tests.Fixtures {
     public class GivenFixtures : IDisposable {
@@ -57,16 +57,16 @@ namespace RpgCombatKata.Tests.Fixtures {
             return new Faction(factionId, eventBus.Subscriber<SuccessTo<JoinFaction>>(), eventBus.Subscriber<SuccessTo<LeaveFaction>>());
         }
 
-        public RulesEngine ARulesEngine(Core.Model.Rules.Rules rules) {
-            return ARulesEngine(new List<Core.Model.Rules.Rules>() {rules});
+        public RulesEngine ARulesEngine(Core.Business.Rules.Rules rules) {
+            return ARulesEngine(new List<Core.Business.Rules.Rules>() {rules});
         }
 
         public RulesEngine ARulesEngine()
         {
-            return ARulesEngine(new List<Core.Model.Rules.Rules>());
+            return ARulesEngine(new List<Core.Business.Rules.Rules>());
         }
         
-        public RulesEngine ARulesEngine(List<Core.Model.Rules.Rules> rules)
+        public RulesEngine ARulesEngine(List<Core.Business.Rules.Rules> rules)
         {
             return new RulesEngine(eventBus, rules);
         }
