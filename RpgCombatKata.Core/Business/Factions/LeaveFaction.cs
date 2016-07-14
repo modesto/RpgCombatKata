@@ -1,6 +1,6 @@
 ﻿namespace RpgCombatKata.Core.Business.Factions
 {
-    public class LeaveFaction: GameAction, GameMessage
+    public class LeaveFaction: GameMessage
     {
         public string CharacterId { get; }
         public string FactionId { get; }

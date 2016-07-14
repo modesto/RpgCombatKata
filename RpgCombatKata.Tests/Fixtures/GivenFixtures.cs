@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NSubstitute;
-using RpgCombatKata.Core;
 using RpgCombatKata.Core.Business;
 using RpgCombatKata.Core.Business.Characters;
 using RpgCombatKata.Core.Business.Combat;
-using RpgCombatKata.Core.Business.Events;
 using RpgCombatKata.Core.Business.Factions;
 using RpgCombatKata.Core.Business.Map;
 using RpgCombatKata.Core.Business.Rules;
@@ -36,11 +34,7 @@ namespace RpgCombatKata.Tests.Fixtures {
         public Character ADeadCharacter() {
             return ALiveCharacter(healthPoints: 0);
         }
-
-        public JoinToGameRequested AJoinToGameRequestedEvent(Character character) {
-            return new JoinToGameRequested(character);
-        }
-
+        
         public void Dispose() {
             eventBus.Dispose();
         }

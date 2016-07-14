@@ -58,7 +58,6 @@
   <ItemGroup>
     <Compile Include="Infrastructure\EventBus.cs" />
     <Compile Include="IDisposableExtensionMethods.cs" />
-    <Compile Include="Business\GameAction.cs" />
     <Compile Include="Business\Factions\LeaveFaction.cs" />
     <Compile Include="Business\Factions\JoinFaction.cs" />
     <Compile Include="Business\Combat\Attack.cs" />
@@ -70,8 +69,6 @@
     <Compile Include="Business\Factions\FactionsRepository.cs" />
     <Compile Include="Business\Combat\CombatRules.cs" />
     <Compile Include="Business\Map\Distance.cs" />
-    <Compile Include="Business\Events\GameEvent.cs" />
-    <Compile Include="Business\Events\JoinToGameRequested.cs" />
     <Compile Include="Business\Factions\Faction.cs" />
     <Compile Include="Business\Factions\Factions.cs" />
     <Compile Include="Business\Map\GameMap.cs" />

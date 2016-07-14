@@ -1,6 +1,6 @@
 ﻿namespace RpgCombatKata.Core.Business.Factions
 {
-    public class JoinFaction : GameAction, GameMessage
+    public class JoinFaction : GameMessage
     {
         public string CharacterId { get; }
         public string FactionId { get; }
