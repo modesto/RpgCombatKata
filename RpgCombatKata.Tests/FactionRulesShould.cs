@@ -9,23 +9,21 @@ namespace RpgCombatKata.Tests
         [Test]
         public void allow_a_character_to_join_a_faction() {
             var character = Given.ALiveCharacter();
-            var aFaction = Given.AFaction();
+            var faction = Given.AFaction();
             var rulesEngine = Given.ARulesEngine();
-            var joinFaction = Given.ATriedToJoinFaction(character.Id, aFaction.Id);
-            When.Raised(joinFaction);
-            aFaction.TotalMembers.Should().Be(1);
+            When.TriedToJoinFaction(character.Id, faction.Id);
+            faction.TotalMembers.Should().Be(1);
         }
 
         [Test]
         public void a_character_can_not_join_a_faction_twice()
         {
             var character = Given.ALiveCharacter();
-            var aFaction = Given.AFaction();
+            var faction = Given.AFaction();
             var rulesEngine = Given.ARulesEngine();
-            var joinFaction = Given.ATriedToJoinFaction(character.Id, aFaction.Id);
-            When.Raised(joinFaction);
-            When.Raised(joinFaction);
-            aFaction.TotalMembers.Should().Be(1);
+            When.TriedToJoinFaction(character.Id, faction.Id);
+            When.TriedToJoinFaction(character.Id, faction.Id);
+            faction.TotalMembers.Should().Be(1);
         }
 
         [Test]
@@ -33,11 +31,9 @@ namespace RpgCombatKata.Tests
             var character = Given.ALiveCharacter();
             var faction = Given.AFaction();
             var rulesEngine = Given.ARulesEngine();
-            var joinFaction = Given.ATriedToJoinFaction(character.Id, faction.Id);
-            var leaveFaction = Given.ATriedToLeaveFactionAction(character.Id, faction.Id);
-            When.Raised(joinFaction);
+            When.TriedToJoinFaction(character.Id, faction.Id);
             faction.TotalMembers.Should().Be(1);
-            When.Raised(leaveFaction);
+            When.TriedToLeaveFaction(character.Id, faction.Id);
             faction.TotalMembers.Should().Be(0);
         }
 
@@ -49,12 +45,9 @@ namespace RpgCombatKata.Tests
             var faction = Given.AFaction();
             var factionRules = Given.AFactionCombatRules(faction);
             var rulesEngine = Given.ARulesEngine(factionRules);
-            var joinFaction = Given.ATriedToJoinFaction(character.Id, faction.Id);
-            var allyJoinFaction = Given.ATriedToJoinFaction(anAlly.Id, faction.Id);
-            var triedToHeal = Given.ATriedToHealEvent(character.Id, anAlly.Id, 50);
-            When.Raised(joinFaction);
-            When.Raised(allyJoinFaction);
-            When.Raised(triedToHeal);
+            When.TriedToJoinFaction(character.Id, faction.Id);
+            When.TriedToJoinFaction(anAlly.Id, faction.Id);
+            When.TriedToHeal(character.Id, anAlly.Id, 50);
             anAlly.HealthCondition.CurrentHealth.Should().Be(950);
         }
 
@@ -67,13 +60,10 @@ namespace RpgCombatKata.Tests
             var attacker = Given.ALiveCharacter();
             var defender = Given.ALiveCharacter();
             var initialHealth = defender.HealthCondition.CurrentHealth;
-            var joinFaction = Given.ATriedToJoinFaction(attacker.Id, faction.Id);
-            var enemyJoinFaction = Given.ATriedToJoinFaction(defender.Id, faction.Id);
-            When.Raised(joinFaction);
-            When.Raised(enemyJoinFaction);
+            When.TriedToJoinFaction(attacker.Id, faction.Id);
+            When.TriedToJoinFaction(defender.Id, faction.Id);
             var damage = 100;
-            var attack = Given.ATriedToAttackEvent(attacker.Id, defender.Id, damage: damage);
-            When.Raised(attack);
+            When.TriedToAttack(attacker.Id, defender.Id, damage: damage);
             defender.HealthCondition.CurrentHealth.Should().Be(initialHealth);
         }
     }

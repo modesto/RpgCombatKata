@@ -1,7 +1,5 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
-using Given = RpgCombatKata.Tests.TestFixtures;
-using When = RpgCombatKata.Tests.TestFixtures;
 
 namespace RpgCombatKata.Tests
 {
@@ -17,8 +15,7 @@ namespace RpgCombatKata.Tests
         [Test]
         public void receive_damage() {
             var aCharacter = Given.ALiveCharacter();
-            var attack = Given.ASuccessAttack(to: aCharacter.Id, damage: 100);
-            When.Raised(attack);
+            When.ASuccessAttack(to: aCharacter.Id, damage: 100);
             aCharacter.HealthCondition.CurrentHealth.Should().Be(900);
         }
 
@@ -27,16 +24,14 @@ namespace RpgCombatKata.Tests
         {
             var aCharacter = Given.ALiveCharacter();
             var anotherCharacter = Given.ALiveCharacter();
-            var attack = Given.ASuccessAttack(to: aCharacter.Id, damage: 100);
-            When.Raised(attack);
+            When.ASuccessAttack(to: aCharacter.Id, damage: 100);
             anotherCharacter.HealthCondition.CurrentHealth.Should().Be(1000);
         }
 
         [Test]
         public void be_healed() {
             var aCharacter = Given.ALiveCharacter(healthPoints : 900);
-            var heal = Given.ASuccessHeal(to: aCharacter.Id, healingPoints: 50);
-            When.Raised(heal);
+            When.ASuccessHeal(to: aCharacter.Id, healingPoints: 50);
             aCharacter.HealthCondition.CurrentHealth.Should().Be(950);
         }
 
@@ -45,16 +40,14 @@ namespace RpgCombatKata.Tests
         {
             var aCharacter = Given.ALiveCharacter(healthPoints: 900);
             var anotherCharacter = Given.ALiveCharacter(healthPoints: 900);
-            var heal = Given.ASuccessHeal(to: aCharacter.Id, healingPoints: 50);
-            When.Raised(heal);
+            When.ASuccessHeal(to: aCharacter.Id, healingPoints: 50);
             anotherCharacter.HealthCondition.CurrentHealth.Should().Be(900);
         }
 
         [Test]
         public void not_be_healed_if_born_dead() {
             var aDeadCharacter = Given.ADeadCharacter();
-            var heal = Given.ASuccessHeal(to: aDeadCharacter.Id, healingPoints: 50);
-            When.Raised(heal);
+            When.ASuccessHeal(to: aDeadCharacter.Id, healingPoints: 50);
             aDeadCharacter.HealthCondition.CurrentHealth.Should().Be(0);
         }
 
@@ -62,10 +55,8 @@ namespace RpgCombatKata.Tests
         public void not_be_healed_after_dead()
         {
             var aCharacter = Given.ALiveCharacter(healthPoints: 50);
-            var attack = Given.ASuccessAttack(to: aCharacter.Id, damage: 60);
-            When.Raised(attack);
-            var heal = Given.ASuccessHeal(to: aCharacter.Id, healingPoints: 50);
-            When.Raised(heal);
+            When.ASuccessAttack(to: aCharacter.Id, damage: 60);
+            When.ASuccessHeal(to: aCharacter.Id, healingPoints: 50);
             aCharacter.HealthCondition.CurrentHealth.Should().Be(0);
         }
 
@@ -73,8 +64,7 @@ namespace RpgCombatKata.Tests
         public void not_be_healed_over_max_life() {
             var aCharacter = Given.ALiveCharacter();
             var expectedHealth = aCharacter.HealthCondition.CurrentHealth;
-            var heal = Given.ASuccessHeal(to: aCharacter.Id, healingPoints: 50);
-            When.Raised(heal);
+            When.ASuccessHeal(to: aCharacter.Id, healingPoints: 50);
             aCharacter.HealthCondition.CurrentHealth.Should().Be(expectedHealth);
         }
 

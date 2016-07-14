@@ -74,7 +74,6 @@
     <Compile Include="Model\Events\JoinToGameRequested.cs" />
     <Compile Include="Model\Factions\Faction.cs" />
     <Compile Include="Model\Factions\Factions.cs" />
-    <Compile Include="Model\GameEngine.cs" />
     <Compile Include="Model\Map\GameMap.cs" />
     <Compile Include="Model\GameMessage.cs" />
     <Compile Include="Model\Combat\Heal.cs" />

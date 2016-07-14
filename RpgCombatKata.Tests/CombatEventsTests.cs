@@ -2,7 +2,6 @@
 using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
-using RpgCombatKata.Core.Model;
 using RpgCombatKata.Core.Model.Characters;
 using RpgCombatKata.Core.Model.Combat;
 using RpgCombatKata.Core.Model.Map;
@@ -21,8 +20,7 @@ namespace RpgCombatKata.Tests
             var defender = Given.ALiveCharacter();
             var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
-            var attack = Given.ATriedToAttackEvent(attacker.Id, defender.Id, damage: damage);
-            When.Raised(attack);
+            When.TriedToAttack(attacker.Id, defender.Id, damage: damage);
             defender.HealthCondition.CurrentHealth.Should().Be(initialHealth-damage);
         }
 
@@ -34,8 +32,7 @@ namespace RpgCombatKata.Tests
             var attacker = Given.ALiveCharacter();
             var initialHealth = attacker.HealthCondition.CurrentHealth;
             var damage = 100;
-            var attack = Given.ATriedToAttackEvent(attacker.Id, attacker.Id, damage: damage);
-            When.Raised(attack);
+            When.TriedToAttack(attacker.Id, attacker.Id, damage: damage);
             attacker.HealthCondition.CurrentHealth.Should().Be(initialHealth);
         }
 
@@ -45,8 +42,7 @@ namespace RpgCombatKata.Tests
             var healer = Given.ALiveCharacter(healthPoints: 900);
             var initialHealth = healer.HealthCondition.CurrentHealth;
             var pointsToHeal = 50;
-            var heal = Given.ATriedToHealEvent(healer.Id, healer.Id, heal: pointsToHeal);
-            When.Raised(heal);
+            When.TriedToHeal(healer.Id, healer.Id, heal: pointsToHeal);
             healer.HealthCondition.CurrentHealth.Should().Be(initialHealth + pointsToHeal);
         }
 
@@ -59,8 +55,7 @@ namespace RpgCombatKata.Tests
             var enemy = Given.ALiveCharacter(healthPoints: 900);
             var initialHealth = enemy.HealthCondition.CurrentHealth;
             var pointsToHeal = 50;
-            var heal = Given.ATriedToHealEvent(healer.Id, enemy.Id, heal: pointsToHeal);
-            When.Raised(heal);
+            When.TriedToHeal(healer.Id, enemy.Id, heal: pointsToHeal);
             enemy.HealthCondition.CurrentHealth.Should().Be(initialHealth);
         }
 
@@ -76,8 +71,7 @@ namespace RpgCombatKata.Tests
             var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
             var expectedDamage = (int)(damage * 1.5);
-            var attack = Given.ATriedToAttackEvent(attacker.Id, defender.Id, damage: damage);
-            When.Raised(attack);
+            When.TriedToAttack(attacker.Id, defender.Id, damage: damage);
             defender.HealthCondition.CurrentHealth.Should().Be(initialHealth - expectedDamage);
         }
 
@@ -94,8 +88,7 @@ namespace RpgCombatKata.Tests
             var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
             var expectedDamage = (int)(damage - (damage * 0.5));
-            var attack = Given.ATriedToAttackEvent(attacker.Id, defender.Id, damage: damage);
-            When.Raised(attack);
+            When.TriedToAttack(attacker.Id, defender.Id, damage: damage);
             defender.HealthCondition.CurrentHealth.Should().Be(initialHealth - expectedDamage);
         }
 
@@ -110,8 +103,7 @@ namespace RpgCombatKata.Tests
             var rulesEngine = Given.ARulesEngine(mapRules);
             var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
-            var attack = Given.ATriedToAttackEvent(attacker.Id, defender.Id, damage: damage);
-            When.Raised(attack);
+            When.TriedToAttack(attacker.Id, defender.Id, damage: damage);
             defender.HealthCondition.CurrentHealth.Should().Be(initialHealth - damage);
         }
 
@@ -126,8 +118,7 @@ namespace RpgCombatKata.Tests
             var rulesEngine = Given.ARulesEngine(mapRules);
             var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
-            var attack = Given.ATriedToAttackEvent(attacker.Id, defender.Id, damage: damage, kind: AttackRanges.Melee());
-            When.Raised(attack);
+            When.TriedToAttack(attacker.Id, defender.Id, damage: damage, kind: AttackRanges.Melee());
             defender.HealthCondition.CurrentHealth.Should().Be(initialHealth);
         }
 
@@ -142,8 +133,7 @@ namespace RpgCombatKata.Tests
             var rulesEngine = Given.ARulesEngine(mapRules);
             var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
-            var attack = Given.ATriedToAttackEvent(attacker.Id, defender.Id, damage: damage, kind: AttackRanges.Range());
-            When.Raised(attack);
+            When.TriedToAttack(attacker.Id, defender.Id, damage: damage, kind: AttackRanges.Range());
             defender.HealthCondition.CurrentHealth.Should().Be(initialHealth- damage);
         }
 
