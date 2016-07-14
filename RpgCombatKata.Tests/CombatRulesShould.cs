@@ -10,7 +10,7 @@ using RpgCombatKata.Core.Model.Rules;
 namespace RpgCombatKata.Tests
 {
     [TestFixture]
-    public class CombatEventsTests : TestBase
+    public class CombatRulesShould : TestBase
     {
         [Test]
         public void a_character_can_attack_another_character() {

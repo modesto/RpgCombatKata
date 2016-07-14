@@ -73,7 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharactersShould.cs" />
-    <Compile Include="CombatEventsTests.cs" />
+    <Compile Include="CombatRulesShould.cs" />
     <Compile Include="EventBusShould.cs" />
     <Compile Include="FactionRulesShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
