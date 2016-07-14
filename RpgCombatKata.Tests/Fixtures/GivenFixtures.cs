@@ -11,7 +11,7 @@ using RpgCombatKata.Core.Model.Factions;
 using RpgCombatKata.Core.Model.Map;
 using RpgCombatKata.Core.Model.Rules;
 
-namespace RpgCombatKata.Tests {
+namespace RpgCombatKata.Tests.Fixtures {
     public class GivenFixtures : IDisposable {
         private readonly EventBus eventBus;
         public GivenFixtures(EventBus eventBus) {
@@ -56,16 +56,16 @@ namespace RpgCombatKata.Tests {
             return new Faction(factionId, eventBus.Subscriber<SuccessTo<JoinFaction>>(), eventBus.Subscriber<SuccessTo<LeaveFaction>>());
         }
 
-        public RulesEngine ARulesEngine(Rules rules) {
-            return ARulesEngine(new List<Rules>() {rules});
+        public RulesEngine ARulesEngine(Core.Model.Rules.Rules rules) {
+            return ARulesEngine(new List<Core.Model.Rules.Rules>() {rules});
         }
 
         public RulesEngine ARulesEngine()
         {
-            return ARulesEngine(new List<Rules>());
+            return ARulesEngine(new List<Core.Model.Rules.Rules>());
         }
         
-        public RulesEngine ARulesEngine(List<Rules> rules)
+        public RulesEngine ARulesEngine(List<Core.Model.Rules.Rules> rules)
         {
             return new RulesEngine(eventBus, rules);
         }

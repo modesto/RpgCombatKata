@@ -7,7 +7,7 @@ namespace RpgCombatKata.Tests
     public class FactionRulesShould : TestBase
     {
         [Test]
-        public void allow_a_character_to_join_a_faction() {
+        public void allow_a_character_join_a_faction() {
             var character = Given.ALiveCharacter();
             var faction = Given.AFaction();
             var rulesEngine = Given.ARulesEngine();
@@ -16,7 +16,7 @@ namespace RpgCombatKata.Tests
         }
 
         [Test]
-        public void a_character_can_not_join_a_faction_twice()
+        public void forbide_a_character_join_a_faction_twice()
         {
             var character = Given.ALiveCharacter();
             var faction = Given.AFaction();
@@ -27,7 +27,7 @@ namespace RpgCombatKata.Tests
         }
 
         [Test]
-        public void a_character_can_leave_a_faction() {
+        public void allow_a_character_leave_a_faction() {
             var character = Given.ALiveCharacter();
             var faction = Given.AFaction();
             var rulesEngine = Given.ARulesEngine();
@@ -38,7 +38,7 @@ namespace RpgCombatKata.Tests
         }
 
         [Test]
-        public void a_character_can_heal_an_ally()
+        public void allow_a_character_heal_an_ally()
         {
             var character = Given.ALiveCharacter();
             var anAlly = Given.ALiveCharacter(healthPoints: 900);
@@ -52,7 +52,7 @@ namespace RpgCombatKata.Tests
         }
 
         [Test]
-        public void a_character_can_not_attack_an_ally()
+        public void forbide_a_character_attack_an_ally()
         {
             var faction = Given.AFaction();
             var factionRules = Given.AFactionCombatRules(faction);
