@@ -41,6 +41,5 @@ namespace RpgCombatKata.Tests.Rules
             When.TriedToAttack(attacker.Id, defender.Id, damage: damage);
             defender.HealthCondition.CurrentHealth.Should().Be(initialHealth - expectedDamage);
         }
-
     }
 }

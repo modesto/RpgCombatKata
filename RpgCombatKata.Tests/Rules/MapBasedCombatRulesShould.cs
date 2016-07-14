@@ -68,6 +68,5 @@ namespace RpgCombatKata.Tests.Rules
             When.TriedToAttack(attacker.Id, defender.Id, damage: damage, kind: AttackRanges.Range());
             defender.HealthCondition.CurrentHealth.Should().Be(initialHealth);
         }
-
     }
 }
