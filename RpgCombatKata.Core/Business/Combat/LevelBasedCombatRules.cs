@@ -24,10 +24,10 @@ namespace RpgCombatKata.Core.Business.Combat
 
             if (attacker.Level >= defender.Level + 5)
             {
-                attack?.Event.UpdateDamage((int)(attack.Event.Damage * 1.5));
+                attack?.Event.UpdateDamage(attack.Event.Damage.IncreaseIn(50.Percent()));
             }
             else if (attacker.Level <= defender.Level - 5) {
-                attack?.Event.UpdateDamage((int) (attack.Event.Damage - (attack.Event.Damage * 0.5)));
+                attack?.Event.UpdateDamage(attack.Event.Damage.DecreaseIn(50.Percent()));
             }
             return (T)Convert.ChangeType(attack, typeof(T));
         }

@@ -90,6 +90,7 @@
     <Compile Include="Business\Rules\RulesPipeline.cs" />
     <Compile Include="Business\TriedTo.cs" />
     <Compile Include="Business\SuccessTo.cs" />
+    <Compile Include="NumericExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
