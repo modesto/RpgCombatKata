@@ -1,0 +1,20 @@
+﻿# Extended rules for RPG Combat Kata
+- Characters can have magic points
+- Characters have skills: melee attack, ranged attack, magic attack, heal
+- The damage of Magic attacks will be 10*magic points used in the attack
+- Each skill has a success rate value (0% to 100%)
+- Characters can have equipment
+- Equipment can modify skills, health, magic points or other equipment of the own character
+- Equipment can modify skills, health, magic points or other equipment of other characters
+- Characters have a new characteristic "armor". Non magical attacks will deal damage equal to (damage points - armor)
+- Characters have a new characteristic "armor against magic". Magical attacks will deal damage equal to (damage points - armor)
+- Equipment samples:
+	- Wand: +10 magic points to character
+	- Ring +100 health points to all faction members
+	- Sword: +20% melee attack to owner
+	- Hat: 2x other owner equipments effects
+	- Sword: Ignore enemies' armor in melee damage
+	- Leather armor: +20 to owner armor
+- Now we have weather conditions:
+	- Fog: -20% to ranged attacks and -10% to melee attacks skills
+	- Strong wind: -10% to ranged attacks skill
