@@ -15,8 +15,10 @@ namespace RpgCombatKata.Tests.Entities
         [Test]
         public void receive_damage() {
             var aCharacter = Given.ALiveCharacter();
-            When.ASuccessAttack(to: aCharacter.Id, damage: 100);
-            aCharacter.HealthCondition.CurrentHealth.Should().Be(900);
+            var attackDamage = 100;
+            var expectedHealth = aCharacter.HealthCondition.CurrentHealth - attackDamage;
+            When.ASuccessAttack(to: aCharacter.Id, damage: attackDamage);
+            aCharacter.HealthCondition.CurrentHealth.Should().Be(expectedHealth);
         }
 
         [Test]
@@ -24,8 +26,9 @@ namespace RpgCombatKata.Tests.Entities
         {
             var aCharacter = Given.ALiveCharacter();
             var anotherCharacter = Given.ALiveCharacter();
+            var expectedHealth = anotherCharacter.HealthCondition.CurrentHealth;
             When.ASuccessAttack(to: aCharacter.Id, damage: 100);
-            anotherCharacter.HealthCondition.CurrentHealth.Should().Be(1000);
+            anotherCharacter.HealthCondition.CurrentHealth.Should().Be(expectedHealth);
         }
 
         [Test]
@@ -55,7 +58,7 @@ namespace RpgCombatKata.Tests.Entities
         public void not_be_healed_after_dead()
         {
             var aCharacter = Given.ALiveCharacter(healthPoints: 50);
-            When.ASuccessAttack(to: aCharacter.Id, damage: 60);
+            When.ASuccessAttack(to: aCharacter.Id, damage: 50);
             When.ASuccessHeal(to: aCharacter.Id, healingPoints: 50);
             aCharacter.HealthCondition.CurrentHealth.Should().Be(0);
         }
