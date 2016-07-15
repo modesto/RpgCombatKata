@@ -113,4 +113,8 @@ namespace RpgCombatKata.Core.Business.Map {
             return $"{TotalMeters}[m]";
         }
     }
+
+    public static class DistanceExtensionMethods {
+        public static Distance Meters(this int meters) => Distance.FromMeters(meters);
+    }
 }

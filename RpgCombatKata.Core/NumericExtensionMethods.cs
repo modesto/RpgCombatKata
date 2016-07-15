@@ -1,5 +1,4 @@
 ﻿using System;
-using RpgCombatKata.Core.Business.Map;
 
 namespace RpgCombatKata.Core
 {

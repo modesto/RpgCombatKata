@@ -16,7 +16,7 @@ namespace RpgCombatKata.Tests.Rules
             var attacker = Given.ALiveCharacter();
             var defender = Given.ALiveCharacter();
             var gameMap = Given.AGameMap();
-            gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(Distance.FromMeters(2));
+            gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(2.Meters());
             var mapRules = Given.AMapBasedCombatRules(gameMap);
             Given.ARulesPipeline(mapRules);
             var initialHealth = defender.HealthCondition.CurrentHealth;
@@ -31,7 +31,7 @@ namespace RpgCombatKata.Tests.Rules
             var attacker = Given.ALiveCharacter();
             var defender = Given.ALiveCharacter();
             var gameMap = Given.AGameMap();
-            gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(Distance.FromMeters(3));
+            gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(3.Meters());
             var mapRules = Given.AMapBasedCombatRules(gameMap);
             Given.ARulesPipeline(mapRules);
             var initialHealth = defender.HealthCondition.CurrentHealth;
@@ -46,7 +46,7 @@ namespace RpgCombatKata.Tests.Rules
             var attacker = Given.ALiveCharacter();
             var defender = Given.ALiveCharacter();
             var gameMap = Given.AGameMap();
-            gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(Distance.FromMeters(20));
+            gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(20.Meters());
             var mapRules = Given.AMapBasedCombatRules(gameMap);
             Given.ARulesPipeline(mapRules);
             var initialHealth = defender.HealthCondition.CurrentHealth;
@@ -61,7 +61,7 @@ namespace RpgCombatKata.Tests.Rules
             var attacker = Given.ALiveCharacter();
             var defender = Given.ALiveCharacter();
             var gameMap = Given.AGameMap();
-            gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(Distance.FromMeters(21));
+            gameMap.DistanceBetween(attacker.Id, defender.Id).Returns(21.Meters());
             var mapRules = Given.AMapBasedCombatRules(gameMap);
             Given.ARulesPipeline(mapRules);
             var initialHealth = defender.HealthCondition.CurrentHealth;
