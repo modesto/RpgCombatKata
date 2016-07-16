@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
+using RpgCombatKata.Core.Business.Characters;
 
 namespace RpgCombatKata.Core.Business.Factions
 {
     public class Faction
     {
-        private readonly List<string> members = new List<string>();
+        private readonly List<GameEntityIdentity> members = new List<GameEntityIdentity>();
         public string Id { get; }
         public int TotalMembers => members.Count;
 
@@ -27,7 +28,7 @@ namespace RpgCombatKata.Core.Business.Factions
             if (members.Contains(action.Event.CharacterId)) members.Remove(action.Event.CharacterId);
         }
 
-        public bool AreAllies(string aCharacterId, string anotherCharacterId) {
+        public bool AreAllies(GameEntityIdentity aCharacterId, GameEntityIdentity anotherCharacterId) {
             return (members.Contains(aCharacterId) && members.Contains(anotherCharacterId));
         }
     }

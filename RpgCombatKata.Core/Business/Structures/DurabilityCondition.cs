@@ -1,5 +1,6 @@
 using System;
 using System.Reactive.Linq;
+using RpgCombatKata.Core.Business.Characters;
 using RpgCombatKata.Core.Business.Combat;
 
 namespace RpgCombatKata.Core.Business.Structures {
@@ -7,7 +8,7 @@ namespace RpgCombatKata.Core.Business.Structures {
     {
         public int CurrentDurability { get; private set; }
 
-        public DurabilityCondition(string structureId, IObservable<SuccessTo<Attack>> attacksObservable, int currentDurability)
+        public DurabilityCondition(GameEntityIdentity structureId, IObservable<SuccessTo<Attack>> attacksObservable, int currentDurability)
         {
             CurrentDurability = currentDurability;
 

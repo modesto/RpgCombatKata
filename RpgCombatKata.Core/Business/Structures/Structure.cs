@@ -1,10 +1,12 @@
+using RpgCombatKata.Core.Business.Characters;
+
 namespace RpgCombatKata.Core.Business.Structures {
     public class Structure
     {
         public DurabilityCondition DurabilityCondition { get; }
-        public string Id { get; }
+        public GameEntityIdentity Id { get; }
 
-        public Structure(string structureId, DurabilityCondition durabilityCondition)
+        public Structure(GameEntityIdentity structureId, DurabilityCondition durabilityCondition)
         {
             Id = structureId;
             DurabilityCondition = durabilityCondition;

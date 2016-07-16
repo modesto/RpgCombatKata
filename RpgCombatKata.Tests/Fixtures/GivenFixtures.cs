@@ -20,19 +20,19 @@ namespace RpgCombatKata.Tests.Fixtures {
 
         public Character ALiveCharacter(int? healthPoints = default(int?), int level = 1)
         {
-            var characterUid = Guid.NewGuid().ToString();
+            var characterUid = new GameEntityIdentity(Guid.NewGuid().ToString());
             var healthCondition = GivenTheHealthConditionOf(characterUid, currentHealth: healthPoints);
             return new Character(characterUid, healthCondition, level);
         }
 
-        private CharacterHealthCondition GivenTheHealthConditionOf(string characterId, int? currentHealth) {
+        private CharacterHealthCondition GivenTheHealthConditionOf(GameEntityIdentity characterId, int? currentHealth) {
             var attacksObservable = eventBus.Observable<SuccessTo<Attack>>();
             var healsObservable = eventBus.Observable<SuccessTo<Heal>>();
             return currentHealth.HasValue ? new CharacterHealthCondition(characterId, attacksObservable, healsObservable, currentHealth.Value) 
                                           : new CharacterHealthCondition(characterId, attacksObservable, healsObservable);
         }
 
-        private DurabilityCondition GivenTheDurabilityConditionOf(string structureId, int currentDurability)
+        private DurabilityCondition GivenTheDurabilityConditionOf(GameEntityIdentity structureId, int currentDurability)
         {
             var attacksObservable = eventBus.Observable<SuccessTo<Attack>>();
             return new DurabilityCondition(structureId, attacksObservable, currentDurability);
@@ -71,8 +71,8 @@ namespace RpgCombatKata.Tests.Fixtures {
 
         public LevelBasedCombatRules ALevelBasedCombatRules(List<Character> charactersStubData) {
             var charactersRepository = Substitute.For<CharactersRepository>();
-            charactersRepository.GetCharacter(Arg.Any<string>())
-                .Returns(x => charactersStubData.First(y => y.Id == x.ArgAt<string>(0)));
+            charactersRepository.GetCharacter(Arg.Any<GameEntityIdentity>())
+                .Returns(x => charactersStubData.First(y => y.Id == x.ArgAt<GameEntityIdentity>(0)));
             return new LevelBasedCombatRules(charactersRepository);
         }
 
@@ -94,7 +94,7 @@ namespace RpgCombatKata.Tests.Fixtures {
         }
 
         public Structure AStructure(int durability) {
-            var structureId = Guid.NewGuid().ToString();
+            var structureId = new GameEntityIdentity(Guid.NewGuid().ToString());
             var durabilityCondition = GivenTheDurabilityConditionOf(structureId, currentDurability: durability);
             return new Structure(structureId, durabilityCondition);
         }

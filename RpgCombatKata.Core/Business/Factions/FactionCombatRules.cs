@@ -1,4 +1,5 @@
 ﻿using System;
+using RpgCombatKata.Core.Business.Characters;
 using RpgCombatKata.Core.Business.Combat;
 
 namespace RpgCombatKata.Core.Business.Factions
@@ -32,11 +33,11 @@ namespace RpgCombatKata.Core.Business.Factions
             return gameEvent;
         }
 
-        private bool AreFriends(string aCharacter, string anotherCharacter) {
+        private bool AreFriends(GameEntityIdentity aCharacter, GameEntityIdentity anotherCharacter) {
             return !AreEnemies(aCharacter, anotherCharacter);
         }
 
-        private bool AreEnemies(string aCharacter, string anotherCharacter) {
+        private bool AreEnemies(GameEntityIdentity aCharacter, GameEntityIdentity anotherCharacter) {
             if (aCharacter == anotherCharacter) return false;
             foreach (var faction in factionsRepository.GetFactions()) {
                 if (faction.AreAllies(aCharacter, anotherCharacter)) return false;

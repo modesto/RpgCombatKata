@@ -61,6 +61,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\Characters\GameEntityIdentity.cs" />
     <Compile Include="Business\Structures\DurabilityCondition.cs" />
     <Compile Include="Business\Structures\Structure.cs" />
     <Compile Include="Infrastructure\EventBus.cs" />

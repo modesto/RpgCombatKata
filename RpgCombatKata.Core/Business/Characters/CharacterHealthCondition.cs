@@ -7,7 +7,7 @@ namespace RpgCombatKata.Core.Business.Characters {
         private IDisposable healsSubscriber;
         private readonly IObservable<SuccessTo<Heal>> healsObservable;
 
-        public CharacterHealthCondition(string characterId, IObservable<SuccessTo<Attack>> attacksObservable, IObservable<SuccessTo<Heal>> healsObservable, int currentHealth = MaxHealth)
+        public CharacterHealthCondition(GameEntityIdentity characterId, IObservable<SuccessTo<Attack>> attacksObservable, IObservable<SuccessTo<Heal>> healsObservable, int currentHealth = MaxHealth)
         {
             CurrentHealth = currentHealth;
             attacksObservable.Where(x => x.Event.To == characterId).Subscribe(x => ProcessAttack(x.Event));
