@@ -8,10 +8,10 @@ namespace RpgCombatKata.Core.Business.Factions
     public class Faction
     {
         private readonly List<GameEntityIdentity> members = new List<GameEntityIdentity>();
-        public string Id { get; }
+        public FactionIdentity Id { get; }
         public int TotalMembers => members.Count;
 
-        public Faction(string id, IObservable<SuccessTo<JoinFaction>> joinFactionObservable, IObservable<SuccessTo<LeaveFaction>> leaveFactionObservable ) {
+		public Faction(FactionIdentity id, IObservable<SuccessTo<JoinFaction>> joinFactionObservable, IObservable<SuccessTo<LeaveFaction>> leaveFactionObservable ) {
             Id = id;
             joinFactionObservable.Where(gameEvent => gameEvent.Event.FactionId == id).Subscribe(JoinFaction);
             leaveFactionObservable.Where(gameEvent => gameEvent.Event.FactionId == id).Subscribe(LeaveFaction);

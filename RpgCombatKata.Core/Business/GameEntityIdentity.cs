@@ -1,4 +1,4 @@
-namespace RpgCombatKata.Core.Business.Characters {
+namespace RpgCombatKata.Core.Business {
     public class GameEntityIdentity {
         private readonly string id;
 

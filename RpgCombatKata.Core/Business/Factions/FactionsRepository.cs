@@ -4,7 +4,7 @@ namespace RpgCombatKata.Core.Business.Factions
 {
     public interface FactionsRepository
     {
-        Faction GetFaction(string id);
+        Faction GetFaction(FactionIdentity id);
         IEnumerable<Faction> GetFactions();
     }
 }

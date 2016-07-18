@@ -20,7 +20,7 @@ namespace RpgCombatKata.Tests.Fixtures {
 
         public Character ALiveCharacter(int? healthPoints = default(int?), int level = 1)
         {
-            var characterUid = new GameEntityIdentity(Guid.NewGuid().ToString());
+            var characterUid = new CharacterIdentity(Guid.NewGuid().ToString());
             var healthCondition = GivenTheHealthConditionOf(characterUid, currentHealth: healthPoints);
             return new Character(characterUid, healthCondition, level);
         }
@@ -47,7 +47,7 @@ namespace RpgCombatKata.Tests.Fixtures {
         }
 
         public Faction AFaction() {
-            var factionId = Guid.NewGuid().ToString();
+			var factionId = new FactionIdentity(Guid.NewGuid().ToString());
             return new Faction(factionId, eventBus.Observable<SuccessTo<JoinFaction>>(), eventBus.Observable<SuccessTo<LeaveFaction>>());
         }
 

@@ -4,10 +4,10 @@ namespace RpgCombatKata.Core.Business.Factions
 {
     public class JoinFaction : GameMessage
     {
-        public GameEntityIdentity CharacterId { get; }
-        public string FactionId { get; }
+		public CharacterIdentity CharacterId { get; }
+        public FactionIdentity FactionId { get; }
 
-        public JoinFaction(GameEntityIdentity characterId, string factionId)
+		public JoinFaction(CharacterIdentity characterId, FactionIdentity factionId)
         {
             CharacterId = characterId;
             FactionId = factionId;

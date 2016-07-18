@@ -27,12 +27,12 @@ namespace RpgCombatKata.Tests.Fixtures {
             Raise(new TriedTo<Attack>(new Attack(from, to, damage, kind)));
         }
 
-        public void TriedToJoinFaction(GameEntityIdentity characerId, string factionId)
+        public void TriedToJoinFaction(CharacterIdentity characerId, FactionIdentity factionId)
         {
             Raise(new TriedTo<JoinFaction>(new JoinFaction(characerId, factionId)));
         }
 
-        public void TriedToLeaveFaction(GameEntityIdentity characterId, string factionId)
+        public void TriedToLeaveFaction(CharacterIdentity characterId, FactionIdentity factionId)
         {
             Raise(new TriedTo<LeaveFaction>(new LeaveFaction(characterId, factionId)));
         }
