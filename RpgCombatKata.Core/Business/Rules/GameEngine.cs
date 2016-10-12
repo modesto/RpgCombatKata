@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reactive.Linq;
 using RpgCombatKata.Core.Business.Characters;
 using RpgCombatKata.Core.Business.Combat;
@@ -12,20 +11,9 @@ namespace RpgCombatKata.Core.Business.Rules
     public class GameEngine
     {
         private readonly EventBus eventBus;
-        private readonly List<Rules> gameRules;
-        private FactionsRepository factionsRepository;
-        private GameMap gameMap;
-        private CharactersRepository charactersRepository;
-
-        public GameEngine(EventBus eventBus, List<Rules> gameRules) {
-            this.eventBus = eventBus;
-            this.gameRules = gameRules;
-            SubscribeToTriedToAttack();
-            //RegisterFiltersForTriedTo<Attack>();
-            RegisterFiltersForTriedTo<Heal>();
-            RegisterFiltersForTriedTo<JoinFaction>();
-            RegisterFiltersForTriedTo<LeaveFaction>();
-        }
+        private readonly FactionsRepository factionsRepository;
+        private readonly GameMap gameMap;
+        private readonly CharactersRepository charactersRepository;
 
         public GameEngine(EventBus eventBus, FactionsRepository factionsRepository, GameMap gameMap, CharactersRepository charactersRepository) {
             this.eventBus = eventBus;
@@ -34,7 +22,23 @@ namespace RpgCombatKata.Core.Business.Rules
             this.charactersRepository = charactersRepository;
             SubscribeToTriedToJoinGame();
             SubscribeToTriedToJoinFaction();
+            SubscribeToTriedToLeaveFaction();
             SubscribeToTriedToAttack();
+            SubscribeToTriedToHeal();
+        }
+
+        private void SubscribeToTriedToLeaveFaction() {
+            var observer = eventBus.Observable<TriedTo<LeaveFaction>>();
+            observer.Subscribe(x => eventBus.Publish(new SuccessTo<LeaveFaction>(x.Event)));
+        }
+
+        private void SubscribeToTriedToHeal() {
+            var observer = eventBus.Observable<TriedTo<Heal>>();
+            observer
+                .Where(heal => charactersRepository.GetCharacter(heal.Event.From) != null)
+                .Where(heal => charactersRepository.GetCharacter(heal.Event.To) != null)
+                .Where(heal => AreFriends(heal.Event.From, heal.Event.To))
+                .Subscribe(x => eventBus.Publish(new SuccessTo<Heal>(x.Event)));
         }
 
         private void SubscribeToTriedToJoinGame() {
@@ -57,7 +61,7 @@ namespace RpgCombatKata.Core.Business.Rules
                 .Where(attack => gameMap.DistanceBetween(attack?.Event.From, attack?.Event.To).TotalMeters <=
                 attack?.Event.AttackRange.Range.TotalMeters)
                 .Where(ApplyLevelBasedRules)
-                .Subscribe(EvaluateFilterResult);
+                .Subscribe(x => eventBus.Publish(new SuccessTo<Attack>(x.Event)));
         }
 
         private bool ApplyLevelBasedRules(TriedTo<Attack> attack)
@@ -77,6 +81,9 @@ namespace RpgCombatKata.Core.Business.Rules
             return true;
         }
 
+        private bool AreFriends(GameEntityIdentity aCharacter, GameEntityIdentity anotherCharacter) {
+            return !AreEnemies(aCharacter, anotherCharacter);
+        }
         private bool AreEnemies(GameEntityIdentity aCharacter, GameEntityIdentity anotherCharacter)
         {
             if (aCharacter == anotherCharacter) return false;
@@ -85,22 +92,6 @@ namespace RpgCombatKata.Core.Business.Rules
                 if (faction.AreAllies(aCharacter, anotherCharacter)) return false;
             }
             return true;
-        }
-
-
-        private void RegisterFiltersForTriedTo<T>() where T : GameMessage {
-            var observer = eventBus.Observable<TriedTo<T>>();
-            foreach(var rules in gameRules) {
-                if (!rules.CanApplyTo<TriedTo<T>>()) continue;
-                var filter = rules.GetFilterFor<TriedTo<T>>();
-                observer = observer.Select(filter);
-            }
-            observer.Subscribe(EvaluateFilterResult);
-        }
-
-        private void EvaluateFilterResult<T>(TriedTo<T> x) where T : GameMessage {
-            if (x == null) return;
-            eventBus.Publish(new SuccessTo<T>(x.Event));
         }
     }
 }

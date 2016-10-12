@@ -9,13 +9,13 @@ namespace RpgCombatKata.Tests.Rules
         [Test]
         public void allow_a_character_heal_an_ally()
         {
+            var faction = Given.AFaction();
+            var factionRepository = Given.AFactionRepository(faction);
+            Given.ANewGameEngine(factionRepository);
             var initialHealth = 900;
             var pointsToHeal = 50;
             var character = Given.ALiveCharacter();
             var anAlly = Given.ALiveCharacter(healthPoints: initialHealth);
-            var faction = Given.AFaction();
-            var factionRules = Given.AFactionCombatRules(faction);
-            Given.AGameEngine(factionRules);
             When.TriedToJoinFaction(character.Id, faction.Id);
             When.TriedToJoinFaction(anAlly.Id, faction.Id);
             When.TriedToHeal(character.Id, anAlly.Id, pointsToHeal);
@@ -27,8 +27,7 @@ namespace RpgCombatKata.Tests.Rules
         {
             var initialHealth = 900;
             var pointsToHeal = 50;
-            var factionCombatRules = Given.AFactionCombatRules();
-            Given.AGameEngine(factionCombatRules);
+            Given.ANewGameEngine();
             var healer = Given.ALiveCharacter();
             var enemy = Given.ALiveCharacter(healthPoints: initialHealth);
             When.TriedToHeal(healer.Id, enemy.Id, heal: pointsToHeal);

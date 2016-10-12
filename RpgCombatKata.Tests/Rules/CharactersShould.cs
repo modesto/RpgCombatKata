@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
-using RpgCombatKata.Core;
-using RpgCombatKata.Core.Business.Characters;
 
 namespace RpgCombatKata.Tests.Rules {
     public class CharactersShould : TestBase {

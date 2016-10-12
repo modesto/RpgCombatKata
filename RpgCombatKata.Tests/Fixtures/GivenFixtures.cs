@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using NSubstitute;
-using NSubstitute.Routing.Handlers;
 using RpgCombatKata.Core.Business;
 using RpgCombatKata.Core.Business.Characters;
 using RpgCombatKata.Core.Business.Combat;
@@ -54,15 +54,6 @@ namespace RpgCombatKata.Tests.Fixtures {
             return new Faction(factionId, eventBus.Observable<SuccessTo<JoinFaction>>(), eventBus.Observable<SuccessTo<LeaveFaction>>());
         }
 
-        public GameEngine AGameEngine(Core.Business.Rules.Rules rules) {
-            return AGameEngine(new List<Core.Business.Rules.Rules> {rules});
-        }
-
-        public GameEngine AGameEngine()
-        {
-            return AGameEngine(new List<Core.Business.Rules.Rules>());
-        }
-
         public GameEngine ANewGameEngine(FactionsRepository factionRepository = null, GameMap gameMap = null, CharactersRepository charactersRepository = null) {
 
             return new GameEngine(eventBus,
@@ -84,47 +75,11 @@ namespace RpgCombatKata.Tests.Fixtures {
             return charactersRepository;
         }
 
-
-        public GameEngine AGameEngine(List<Core.Business.Rules.Rules> rules)
-        {
-            return new GameEngine(eventBus, rules);
-        }
-
-        public CombatRules ACombatRules() {
-            return new CombatRules();
-        }
-
-        public LevelBasedCombatRules ALevelBasedCombatRules(List<Character> charactersStubData) {
-            var charactersRepository = Substitute.For<CharactersRepository>();
-            charactersRepository.GetCharacter(Arg.Any<GameEntityIdentity>())
-                .Returns(x => charactersStubData.First(y => y.Id == x.ArgAt<GameEntityIdentity>(0)));
-            return new LevelBasedCombatRules(charactersRepository);
-        }
-
-        public MapBasedCombatRules AMapBasedCombatRules(GameMap gameMap) {
-            return new MapBasedCombatRules(gameMap);
-        }
-
-        public FactionCombatRules AFactionCombatRules(Faction aFaction)
-        {
-            var factionsRepository = Substitute.For<FactionsRepository>();
-            factionsRepository.GetFaction(Arg.Is(aFaction.Id)).Returns(aFaction);
-            factionsRepository.GetFactions().Returns(new List<Faction> { aFaction });
-            return new FactionCombatRules(factionsRepository);
-        }
-
         public FactionsRepository AFactionRepository(Faction aFaction)
         {
-            var factionsRepository = Substitute.For<FactionsRepository>();
-            factionsRepository.GetFaction(Arg.Is(aFaction.Id)).Returns(aFaction);
-            factionsRepository.GetFactions().Returns(new List<Faction> { aFaction });
+            var factionsRepository = new FactionsRepositoryInMemory();
+            factionsRepository.Join(aFaction);
             return factionsRepository;
-        }
-
-        public FactionCombatRules AFactionCombatRules()
-        {
-            var factionsRepository = Substitute.For<FactionsRepository>();
-            return new FactionCombatRules(factionsRepository);
         }
 
         public Structure AStructure(int durability) {
@@ -135,8 +90,23 @@ namespace RpgCombatKata.Tests.Fixtures {
 
     }
 
+    public class FactionsRepositoryInMemory : FactionsRepository {
+        readonly Dictionary<FactionIdentity, Faction> factions = new Dictionary<FactionIdentity, Faction>();
+        public Faction GetFaction(FactionIdentity id) {
+            return factions[id];
+        }
+
+        public IEnumerable<Faction> GetFactions() {
+            return new ReadOnlyCollection<Faction>(factions.Values.ToList());
+        }
+
+        public void Join(Faction faction) {
+            factions.Add(faction.Id, faction);
+        }
+    }
+
     public class CharactersRepositoryInMemory : CharactersRepository {
-        private Dictionary<GameEntityIdentity, Character> characters = new Dictionary<GameEntityIdentity, Character>();
+        private readonly Dictionary<GameEntityIdentity, Character> characters = new Dictionary<GameEntityIdentity, Character>();
         public Character GetCharacter(GameEntityIdentity id) {
             return characters[id];
         }
