@@ -1,6 +1,5 @@
 using System;
 using System.Reactive.Linq;
-using RpgCombatKata.Core.Business.Characters;
 using RpgCombatKata.Core.Business.Combat;
 
 namespace RpgCombatKata.Core.Business.Structures {

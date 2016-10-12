@@ -1,5 +1,4 @@
 ﻿using System;
-using RpgCombatKata.Core.Business.Characters;
 using RpgCombatKata.Core.Business.Combat;
 
 namespace RpgCombatKata.Core.Business.Factions

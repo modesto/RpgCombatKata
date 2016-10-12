@@ -1,5 +1,4 @@
 using System;
-using System.Reactive.Linq;
 using RpgCombatKata.Core.Business.Combat;
 
 namespace RpgCombatKata.Core.Business.Characters {
@@ -7,11 +6,11 @@ namespace RpgCombatKata.Core.Business.Characters {
         private IDisposable healsSubscriber;
         private readonly IObservable<SuccessTo<Heal>> healsObservable;
 
-        public CharacterHealthCondition(GameEntityIdentity characterId, IObservable<SuccessTo<Attack>> attacksObservable, IObservable<SuccessTo<Heal>> healsObservable, int currentHealth = MaxHealth)
-        {
+        public CharacterHealthCondition(GameEntityIdentity characterId, IObservable<SuccessTo<Attack>> attacksObservable,
+            IObservable<SuccessTo<Heal>> healsObservable, int currentHealth = MaxHealth) {
             CurrentHealth = currentHealth;
-            attacksObservable.Where(x => x.Event.To == characterId).Subscribe(x => ProcessAttack(x.Event));
-            this.healsObservable = healsObservable.Where(x => x.Event.To == characterId);
+            attacksObservable.TargettingTo(characterId).Subscribe(x => ProcessAttack(x.Event));
+            this.healsObservable = healsObservable.TargettingTo(characterId);
             VerifyHealthStatus();
         }
 
@@ -29,19 +28,15 @@ namespace RpgCombatKata.Core.Business.Characters {
 
         public const int MaxHealth = 1000;
 
-        private void VerifyHealthStatus()
-        {
-            if (CurrentHealth <= 0)
-            {
+        private void VerifyHealthStatus() {
+            if (CurrentHealth <= 0) {
                 CurrentHealth = 0;
                 healsSubscriber?.Dispose();
             }
-            else if (CurrentHealth == MaxHealth)
-            {
+            else if (CurrentHealth == MaxHealth) {
                 healsSubscriber?.Dispose();
             }
-            else if (healsSubscriber == null)
-            {
+            else if (healsSubscriber == null) {
                 healsSubscriber = healsObservable.Subscribe(x => ProcessHeal(x.Event));
             }
 

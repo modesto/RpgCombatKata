@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
-using RpgCombatKata.Core.Business.Characters;
 
 namespace RpgCombatKata.Core.Business.Factions
 {

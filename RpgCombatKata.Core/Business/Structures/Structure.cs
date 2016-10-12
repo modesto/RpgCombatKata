@@ -1,5 +1,3 @@
-using RpgCombatKata.Core.Business.Characters;
-
 namespace RpgCombatKata.Core.Business.Structures {
     public class Structure
     {
