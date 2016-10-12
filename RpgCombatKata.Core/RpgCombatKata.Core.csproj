@@ -66,6 +66,7 @@
     <Compile Include="Business\GameEntityTargetedMessage.cs" />
     <Compile Include="Business\GameEntityIdentity.cs" />
     <Compile Include="Business\Factions\FactionIdentity.cs" />
+    <Compile Include="Business\JoinGame.cs" />
     <Compile Include="Business\Structures\DurabilityCondition.cs" />
     <Compile Include="Business\Structures\Structure.cs" />
     <Compile Include="Infrastructure\EventBus.cs" />
@@ -92,7 +93,7 @@
     <Compile Include="Business\Combat\MeleeAttack.cs" />
     <Compile Include="Business\Combat\RangedAttack.cs" />
     <Compile Include="Business\Rules\Rules.cs" />
-    <Compile Include="Business\Rules\RulesPipeline.cs" />
+    <Compile Include="Business\Rules\GameEngine.cs" />
     <Compile Include="Business\TriedTo.cs" />
     <Compile Include="Business\SuccessTo.cs" />
     <Compile Include="NumericExtensionMethods.cs" />

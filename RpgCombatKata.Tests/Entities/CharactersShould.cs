@@ -75,7 +75,7 @@ namespace RpgCombatKata.Tests.Entities
         [Test]
         public void allow_a_character_to_heal_himself()
         {
-            Given.ARulesPipeline();
+            Given.AGameEngine();
             var healer = Given.ALiveCharacter(healthPoints: 900);
             var initialHealth = healer.HealthCondition.CurrentHealth;
             var pointsToHeal = 50;

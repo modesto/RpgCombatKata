@@ -8,8 +8,7 @@ namespace RpgCombatKata.Tests.Rules
     {
         [Test]
         public void allow_a_character_attack_another_character() {
-            var combatRules = Given.ACombatRules();
-            Given.ARulesPipeline(combatRules);
+            Given.ANewGameEngine();
             var attacker = Given.ALiveCharacter();
             var defender = Given.ALiveCharacter();
             var initialHealth = defender.HealthCondition.CurrentHealth;
@@ -21,8 +20,7 @@ namespace RpgCombatKata.Tests.Rules
         [Test]
         public void forbide_a_character_attack_to_himself()
         {
-            var combatRules = Given.ACombatRules();
-            Given.ARulesPipeline(combatRules);
+            Given.ANewGameEngine();
             var attacker = Given.ALiveCharacter();
             var initialHealth = attacker.HealthCondition.CurrentHealth;
             var damage = 100;

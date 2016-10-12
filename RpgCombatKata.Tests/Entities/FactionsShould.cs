@@ -10,7 +10,7 @@ namespace RpgCombatKata.Tests.Entities
         public void allow_a_character_join_a_faction() {
             var character = Given.ALiveCharacter();
             var faction = Given.AFaction();
-            Given.ARulesPipeline();
+            Given.AGameEngine();
             When.TriedToJoinFaction(character.Id, faction.Id);
             faction.TotalMembers.Should().Be(1);
         }
@@ -20,7 +20,7 @@ namespace RpgCombatKata.Tests.Entities
         {
             var character = Given.ALiveCharacter();
             var faction = Given.AFaction();
-            Given.ARulesPipeline();
+            Given.AGameEngine();
             When.TriedToJoinFaction(character.Id, faction.Id);
             When.TriedToJoinFaction(character.Id, faction.Id);
             faction.TotalMembers.Should().Be(1);
@@ -30,7 +30,7 @@ namespace RpgCombatKata.Tests.Entities
         public void allow_a_character_leave_a_faction() {
             var character = Given.ALiveCharacter();
             var faction = Given.AFaction();
-            Given.ARulesPipeline();
+            Given.AGameEngine();
             When.TriedToJoinFaction(character.Id, faction.Id);
             faction.TotalMembers.Should().Be(1);
             When.TriedToLeaveFaction(character.Id, faction.Id);
