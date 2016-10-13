@@ -4,7 +4,7 @@ namespace RpgCombatKata.Core.Business.Combat {
         public int Damage { get; private set; }
         public AttackRange AttackRange { get; }
 
-        public Attack(GameEntityIdentity from, GameEntityIdentity to, int damage, AttackRange kind) : base(to) {
+        public Attack(GameEntityIdentity from, GameEntityIdentity to, int damage, AttackRange kind) : base(from, to) {
             From = from;
             Damage = damage;
             AttackRange = kind;

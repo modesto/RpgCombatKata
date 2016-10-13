@@ -1,10 +1,8 @@
 namespace RpgCombatKata.Core.Business.Combat {
     public class Heal : GameEntityTargetedMessage {
-        public GameEntityIdentity From { get; }
         public int HealingPoints { get; }
 
-        public Heal(GameEntityIdentity from, GameEntityIdentity to, int healingPoints) : base(to) {
-            From = from;
+        public Heal(GameEntityIdentity from, GameEntityIdentity to, int healingPoints) : base(from, to) {
             HealingPoints = healingPoints;
         }
     }
