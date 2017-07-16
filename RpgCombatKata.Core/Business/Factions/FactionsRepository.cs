@@ -6,5 +6,7 @@ namespace RpgCombatKata.Core.Business.Factions
     {
         Faction GetFaction(FactionIdentity id);
         IEnumerable<Faction> GetFactions();
+
+        void Join(Faction faction);
     }
 }

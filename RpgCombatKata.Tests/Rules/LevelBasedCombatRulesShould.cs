@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
 using RpgCombatKata.Core;
@@ -19,10 +18,7 @@ namespace RpgCombatKata.Tests.Rules
             var damage = 100;
             var expectedDamage = damage.IncreaseIn(50.Percent());
             var charactersStubData = new List<Character>() {attacker, defender};
-            var levelBasedCombatRules = Given.ALevelBasedCombatRules(charactersStubData);
-            var combatRules = Given.ACombatRules();
-            var rules = new List<Core.Business.Rules.Rules>() {combatRules, levelBasedCombatRules};
-            Given.ARulesPipeline(rules);
+            Given.ANewGameEngine(charactersRepository: Given.ACharactersRepository(charactersStubData));
             When.TriedToAttack(attacker.Id, defender.Id, damage: damage);
             defender.HealthCondition.CurrentHealth.Should().Be(initialHealth - expectedDamage);
         }
@@ -35,11 +31,8 @@ namespace RpgCombatKata.Tests.Rules
             var initialHealth = defender.HealthCondition.CurrentHealth;
             var damage = 100;
             var expectedDamage = damage.DecreaseIn(50.Percent());
-            var combatRules = Given.ACombatRules();
             var charactersStubData = new List<Character>() { attacker, defender };
-            var levelBasedCombatRules = Given.ALevelBasedCombatRules(charactersStubData);
-            var rules = new List<Core.Business.Rules.Rules>() { combatRules, levelBasedCombatRules };
-            Given.ARulesPipeline(rules);
+            Given.ANewGameEngine(charactersRepository: Given.ACharactersRepository(charactersStubData));
             When.TriedToAttack(attacker.Id, defender.Id, damage: damage);
             defender.HealthCondition.CurrentHealth.Should().Be(initialHealth - expectedDamage);
         }

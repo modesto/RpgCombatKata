@@ -48,5 +48,9 @@ namespace RpgCombatKata.Tests.Fixtures {
         public void ASuccessHeal(GameEntityIdentity to, int healingPoints) {
             Raise(new SuccessTo<Heal>(new Heal(new NoGameEntityIdentity(), to, healingPoints)));
         }
+
+        public void TriedToJoinGame(Character character) {
+            Raise(new TriedTo<JoinGame>(new JoinGame(character)));
+        }
     }
 }

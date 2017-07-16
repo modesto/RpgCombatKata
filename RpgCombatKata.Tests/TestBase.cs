@@ -11,24 +11,22 @@ namespace RpgCombatKata.Tests {
         private EventBus eventBus;
 
         [SetUp]
-        public void SetUp()
-        {
+        public void SetUp() {
             eventBus = new EventBus();
             Given = new GivenFixtures(eventBus);
             When = new WhenFixtures(eventBus);
         }
 
         [TearDown]
-        public void TearDown()
-        {
+        public void TearDown() {
             eventBus.Dispose();
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "eventBus")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed",
+             MessageId = "eventBus")]
         public void Dispose() {
             eventBus?.Dispose();
         }
     }
-
 }

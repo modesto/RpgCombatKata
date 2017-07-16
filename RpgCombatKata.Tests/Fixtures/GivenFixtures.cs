@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using NSubstitute;
 using RpgCombatKata.Core.Business;
@@ -22,7 +23,9 @@ namespace RpgCombatKata.Tests.Fixtures {
         {
             var characterUid = new CharacterIdentity(Guid.NewGuid().ToString());
             var healthCondition = GivenTheHealthConditionOf(characterUid, currentHealth: healthPoints);
-            return new Character(characterUid, healthCondition, level);
+            var character = new Character(characterUid, healthCondition, level);
+            eventBus.Publish(new TriedTo<JoinGame>(new JoinGame(character)));
+            return character;
         }
 
         private CharacterHealthCondition GivenTheHealthConditionOf(GameEntityIdentity characterId, int? currentHealth) {
@@ -51,52 +54,65 @@ namespace RpgCombatKata.Tests.Fixtures {
             return new Faction(factionId, eventBus.Observable<SuccessTo<JoinFaction>>(), eventBus.Observable<SuccessTo<LeaveFaction>>());
         }
 
-        public RulesPipeline ARulesPipeline(Core.Business.Rules.Rules rules) {
-            return ARulesPipeline(new List<Core.Business.Rules.Rules> {rules});
+        public GameEngine ANewGameEngine(FactionsRepository factionRepository = null, GameMap gameMap = null, CharactersRepository charactersRepository = null) {
+
+            return new GameEngine(eventBus,
+                factionRepository ?? AFactionRepository(AFaction()),
+                gameMap ?? AGameMap(),
+                charactersRepository ?? ACharactersRepository());
         }
 
-        public RulesPipeline ARulesPipeline()
+        public CharactersRepository ACharactersRepository() {
+            return new CharactersRepositoryInMemory();
+        }
+
+        public CharactersRepository ACharactersRepository(List<Character> charactersStubData)
         {
-            return ARulesPipeline(new List<Core.Business.Rules.Rules>());
-        }
-        
-        public RulesPipeline ARulesPipeline(List<Core.Business.Rules.Rules> rules)
-        {
-            return new RulesPipeline(eventBus, rules);
-        }
-
-        public CombatRules ACombatRules() {
-            return new CombatRules();
-        }
-
-        public LevelBasedCombatRules ALevelBasedCombatRules(List<Character> charactersStubData) {
             var charactersRepository = Substitute.For<CharactersRepository>();
             charactersRepository.GetCharacter(Arg.Any<GameEntityIdentity>())
                 .Returns(x => charactersStubData.First(y => y.Id == x.ArgAt<GameEntityIdentity>(0)));
-            return new LevelBasedCombatRules(charactersRepository);
+
+            return charactersRepository;
         }
 
-        public MapBasedCombatRules AMapBasedCombatRules(GameMap gameMap) {
-            return new MapBasedCombatRules(gameMap);
-        }
-
-        public FactionCombatRules AFactionCombatRules(Faction aFaction)
+        public FactionsRepository AFactionRepository(Faction aFaction)
         {
-            var factionsRepository = Substitute.For<FactionsRepository>();
-            factionsRepository.GetFaction(Arg.Is(aFaction.Id)).Returns(aFaction);
-            factionsRepository.GetFactions().Returns(new List<Faction> { aFaction });
-            return new FactionCombatRules(factionsRepository);
-        }
-        public FactionCombatRules AFactionCombatRules()
-        {
-            var factionsRepository = Substitute.For<FactionsRepository>();
-            return new FactionCombatRules(factionsRepository);
+            var factionsRepository = new FactionsRepositoryInMemory();
+            factionsRepository.Join(aFaction);
+            return factionsRepository;
         }
 
         public Structure AStructure(int durability) {
             var structureId = new GameEntityIdentity(Guid.NewGuid().ToString());
             var durabilityCondition = GivenTheDurabilityConditionOf(structureId, currentDurability: durability);
             return new Structure(structureId, durabilityCondition);
+        }
+
+    }
+
+    public class FactionsRepositoryInMemory : FactionsRepository {
+        readonly Dictionary<FactionIdentity, Faction> factions = new Dictionary<FactionIdentity, Faction>();
+        public Faction GetFaction(FactionIdentity id) {
+            return factions[id];
+        }
+
+        public IEnumerable<Faction> GetFactions() {
+            return new ReadOnlyCollection<Faction>(factions.Values.ToList());
+        }
+
+        public void Join(Faction faction) {
+            factions.Add(faction.Id, faction);
+        }
+    }
+
+    public class CharactersRepositoryInMemory : CharactersRepository {
+        private readonly Dictionary<GameEntityIdentity, Character> characters = new Dictionary<GameEntityIdentity, Character>();
+        public Character GetCharacter(GameEntityIdentity id) {
+            return characters[id];
+        }
+
+        public void JoinCharacter(Character character) {
+            characters.Add(character.Id, character);
         }
     }
 }

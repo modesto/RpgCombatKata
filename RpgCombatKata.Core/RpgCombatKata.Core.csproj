@@ -62,8 +62,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\Characters\CharacterIdentity.cs" />
+    <Compile Include="Business\IObservableExtensions.cs" />
+    <Compile Include="Business\GameEntityTargetedMessage.cs" />
     <Compile Include="Business\GameEntityIdentity.cs" />
     <Compile Include="Business\Factions\FactionIdentity.cs" />
+    <Compile Include="Business\JoinGame.cs" />
+    <Compile Include="Business\Rules\CharactersExtensions.cs" />
+    <Compile Include="Business\Rules\CombatEventsExtensions.cs" />
+    <Compile Include="Business\Rules\FactionBasedExtensions.cs" />
+    <Compile Include="Business\Rules\FactionEventsExtensions.cs" />
+    <Compile Include="Business\Rules\GameEventsExtensions.cs" />
+    <Compile Include="Business\Rules\LevelBasedExtensions.cs" />
+    <Compile Include="Business\Rules\MapBasedExtensions.cs" />
     <Compile Include="Business\Structures\DurabilityCondition.cs" />
     <Compile Include="Business\Structures\Structure.cs" />
     <Compile Include="Infrastructure\EventBus.cs" />
@@ -74,23 +84,17 @@
     <Compile Include="Business\Characters\Character.cs" />
     <Compile Include="Business\Characters\CharacterHealthCondition.cs" />
     <Compile Include="Business\Characters\CharactersRepository.cs" />
-    <Compile Include="Business\Factions\FactionCombatRules.cs" />
     <Compile Include="Business\Factions\FactionsRepository.cs" />
-    <Compile Include="Business\Combat\CombatRules.cs" />
     <Compile Include="Business\Map\Distance.cs" />
     <Compile Include="Business\Factions\Faction.cs" />
-    <Compile Include="Business\Factions\Factions.cs" />
     <Compile Include="Business\Map\GameMap.cs" />
     <Compile Include="Business\GameMessage.cs" />
     <Compile Include="Business\Combat\Heal.cs" />
     <Compile Include="Business\Characters\HealthCondition.cs" />
-    <Compile Include="Business\Combat\LevelBasedCombatRules.cs" />
     <Compile Include="Business\Characters\LivingBeing.cs" />
-    <Compile Include="Business\Map\MapBasedCombatRules.cs" />
     <Compile Include="Business\Combat\MeleeAttack.cs" />
     <Compile Include="Business\Combat\RangedAttack.cs" />
-    <Compile Include="Business\Rules\Rules.cs" />
-    <Compile Include="Business\Rules\RulesPipeline.cs" />
+    <Compile Include="Business\Rules\GameEngine.cs" />
     <Compile Include="Business\TriedTo.cs" />
     <Compile Include="Business\SuccessTo.cs" />
     <Compile Include="NumericExtensionMethods.cs" />

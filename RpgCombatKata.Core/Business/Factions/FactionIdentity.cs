@@ -1,6 +1,4 @@
-﻿using RpgCombatKata.Core.Business.Characters;
-
-namespace RpgCombatKata.Core.Business.Factions
+﻿namespace RpgCombatKata.Core.Business.Factions
 {
     public class FactionIdentity : GameEntityIdentity
     {
